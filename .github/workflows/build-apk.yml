@@ -1,0 +1,56 @@
+name: Build JoinSi APK
+
+# Arranca solo al hacer push a main (o manualmente desde la pestana Actions).
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Code/joinsi_app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter (stable, Dart >=3.7)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      # El repo versiona SOLO lib/, test/, assets/ y pubspec.yaml.
+      # Las carpetas nativas se generan aqui. flutter create puede pisar
+      # lib/main.dart, asi que respaldamos y restauramos lib/ tal cual.
+      - name: Generate Android scaffold
+        run: |
+          cp -r lib "$RUNNER_TEMP/joinsi_lib_backup"
+          flutter create --platforms=android --project-name joinsi --org com.homesi .
+          rm -rf lib
+          cp -r "$RUNNER_TEMP/joinsi_lib_backup" lib
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: joinsi-app-release
+          path: Code/joinsi_app/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
