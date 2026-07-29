@@ -3,6 +3,10 @@
 enum Tier { boutique, mid, top }
 enum Stage { assigned, preFunnel, call1, followUp, call2, meetingPD, deciding, signed }
 
+/// Estado de actividad del LO firmado. DERIVADO de casesThisPeriod — nunca se
+/// almacena como campo independiente (dos verdades = una mentira).
+enum Activity { enviandoCasos, sinCasosEsteMes }
+
 /// Programas gancho del catalogo (terminos de industria SIEMPRE en ingles).
 const kPrograms = ['Conventional', 'FHA', 'VA', 'ITIN', 'Non-QM', 'Jumbo'];
 
@@ -64,8 +68,18 @@ class LoanOfficer {
   final double avgLoansMonth;
   final String program;
   int leads, preApprovals, ratified, closedTotal, monthOf12;
-  double earned;            // USD ganados con este LO
-  DateTime? nextTouch;      // motor Tamagotchi
+
+  /// Cuantos de los `closedTotal` YA fueron pagados al SiPartner. El resto esta
+  /// "en camino": cerrado pero pendiente del corte (pagos cada 30 dias).
+  /// Guardar el CONTEO y no el dinero es lo que hace imposible que cobrado y
+  /// pendiente dejen de sumar el causado — el invariante sale por construccion.
+  int collectedCases;
+
+  /// Casos cerrados dentro del periodo de pago vigente. Unico insumo de
+  /// `activity`; si es 0, el LO esta dormido y la carita se atenua.
+  int casesThisPeriod;
+
+  DateTime? nextTouch;      // motor de recontacto
   String? promise;          // "quedaste de llamar el martes"
   AvatarSpec avatar;
 
@@ -73,9 +87,10 @@ class LoanOfficer {
     required this.state, required this.nmls, required this.photoSeed,
     required this.tier, this.stage = Stage.assigned, this.avgLoansMonth = 2,
     String? program, this.leads = 0, this.preApprovals = 0, this.ratified = 0,
-    this.closedTotal = 0, this.monthOf12 = 0, this.earned = 0,
-    this.nextTouch, this.promise, AvatarSpec? avatar})
+    this.closedTotal = 0, this.monthOf12 = 0, int? collectedCases,
+    this.casesThisPeriod = 0, this.nextTouch, this.promise, AvatarSpec? avatar})
       : program = program ?? kPrograms[id.hashCode.abs() % kPrograms.length],
+        collectedCases = collectedCases ?? closedTotal,
         avatar = avatar ?? AvatarSpec.seeded(id);
 
   String get coast => kCoastOf[state] ?? 'Central';
@@ -91,6 +106,30 @@ class LoanOfficer {
     if (closed == 1) return 500;
     return 1000 + (closed - 2) * 200;
   }
+
+  /// Cuanto vale el caso n-esimo por si solo ($500, $500, luego $200).
+  /// Necesario para valorar caso a caso lo pendiente de corte sin re-derivar
+  /// la formula a mano en ninguna pantalla.
+  static double marginalPayoutFor(int n) =>
+      n <= 0 ? 0 : payoutFor(n) - payoutFor(n - 1);
+
+  /// CAUSADO: todo lo que este LO ha generado. Solo crece.
+  double get earned => payoutFor(closedTotal);
+
+  /// COBRADO: ya desembolsado al SiPartner.
+  double get collectedAmount => payoutFor(collectedCases.clamp(0, closedTotal));
+
+  /// EN CAMINO: cerrado pero aun no cobrado — entra en el proximo corte.
+  /// Invariante garantizado: collectedAmount + pendingAmount == earned.
+  double get pendingAmount => earned - collectedAmount;
+
+  /// Cuantos casos cerrados esperan el corte.
+  int get pendingCases => (closedTotal - collectedCases).clamp(0, closedTotal);
+
+  /// Derivado, nunca almacenado: el pulso del LO este periodo.
+  Activity get activity =>
+      casesThisPeriod > 0 ? Activity.enviandoCasos : Activity.sinCasosEsteMes;
+  bool get isActive => activity == Activity.enviandoCasos;
 
   /// Run-rate demostrado: lo que este LO REALMENTE cierra por mes.
   /// Se muestra al lado del declarado — un CEO no proyecta con el declarado.
@@ -108,23 +147,34 @@ class LoanOfficer {
     return payoutFor(closedTotal + future) - payoutFor(closedTotal);
   }
 
+  /// Reparto mensual de lo que falta — alimenta el subtitulo de la ficha 360
+  /// y el mes-1 del dashboard. UNA sola derivacion para ambos.
+  double get monthlyRemaining {
+    final monthsLeft = (12 - monthOf12).clamp(0, 12);
+    return monthsLeft == 0 ? 0 : remainingWindowValue() / monthsLeft;
+  }
+
+  /// Marca como cobrados los casos pendientes (simula el corte de pago).
+  void applyCut() => collectedCases = closedTotal;
+
   Map<String, dynamic> toMap() => {'id': id, 'name': name, 'city': city,
     'state': state, 'nmls': nmls, 'photoSeed': photoSeed, 'tier': tier.index,
     'stage': stage.index, 'avg': avgLoansMonth, 'program': program,
     'leads': leads, 'pre': preApprovals, 'rat': ratified, 'closed': closedTotal,
-    'm12': monthOf12, 'earned': earned,
+    'm12': monthOf12, 'collected': collectedCases, 'period': casesThisPeriod,
     'next': nextTouch?.millisecondsSinceEpoch, 'promise': promise,
     'avFace': avatar.face, 'avShape': avatar.shape, 'avColor': avatar.color,
     'avPhoto': avatar.photoPath};
 
   // Defensivo a proposito: el Hive del dispositivo puede traer mapas sembrados
-  // por un build anterior sin 'program' ni 'avFace'. Un cast duro ahi = crash en
-  // el primer frame, en el celular del director.
+  // por un build anterior sin 'program' ni 'collected'. Un cast duro ahi =
+  // crash en el primer frame, en el celular del director.
   static int _i(Object? v, [int d = 0]) => v is num ? v.toInt() : d;
   static double _d(Object? v, [double d = 0]) => v is num ? v.toDouble() : d;
 
   static LoanOfficer fromMap(Map m) {
     final id = m['id'] as String? ?? 'lo?';
+    final closed = _i(m['closed']);
     return LoanOfficer(
       id: id,
       name: m['name'] as String? ?? '',
@@ -137,8 +187,11 @@ class LoanOfficer {
       avgLoansMonth: _d(m['avg'], 2),
       program: m['program'] as String?,          // null en data vieja: default
       leads: _i(m['leads']), preApprovals: _i(m['pre']), ratified: _i(m['rat']),
-      closedTotal: _i(m['closed']), monthOf12: _i(m['m12']),
-      earned: _d(m['earned']),
+      closedTotal: closed, monthOf12: _i(m['m12']),
+      // Data vieja no traia 'collected': asumir todo cobrado es el default que
+      // no inventa dinero pendiente que el usuario nunca vera llegar.
+      collectedCases: m['collected'] == null ? closed : _i(m['collected']),
+      casesThisPeriod: _i(m['period']),
       nextTouch: m['next'] == null
           ? null : DateTime.fromMillisecondsSinceEpoch(_i(m['next'])),
       promise: m['promise'] as String?,
@@ -147,4 +200,46 @@ class LoanOfficer {
         photoPath: m['avPhoto'] as String?),
     );
   }
+}
+
+// =============================================================================
+// P34 RANKING & ESCALERA — entidades semilla MOCKEADAS.
+// El Acta A0 fija Flutter + Hive local SIN backend: no existe una red real de
+// SiPartners. Estas entidades son ficcion declarada, de la misma categoria que
+// el dialer mock y la cuenta bancaria mock. Se enmarcan como "standings al
+// corte", nunca como feed en vivo.
+// =============================================================================
+
+/// Otro SiPartner de la red. El dinero se DERIVA con la misma economia canonica
+/// que el portafolio propio — jamas se hardcodea el total en dolares.
+class RivalSiPartner {
+  final String name;
+  final int losCount, closedCount, statesCount;
+  final bool isSiFounder, networkActiveThisPeriod;
+  final AvatarSpec avatar;
+
+  const RivalSiPartner({required this.name, required this.losCount,
+    required this.closedCount, required this.statesCount,
+    this.isSiFounder = false, this.networkActiveThisPeriod = true,
+    required this.avatar});
+
+  /// Equivalente a sumar payoutFor por cada LO cuando todos tienen >=2 closed:
+  /// $1,000 de rampa por LO + $200 por caso pasado el segundo.
+  /// = 200*closed + 600*los. Misma formula, agregada.
+  double get earned => 200.0 * closedCount + 600.0 * losCount;
+}
+
+/// Territorio exclusivo de SiBroker. `claimedBy == null` => disponible.
+class Territory {
+  final String code, name;
+  final String? claimedBy;
+  const Territory({required this.code, required this.name, this.claimedBy});
+  bool get isAvailable => claimedBy == null;
+}
+
+/// Requisitos canonicos de la escalera de estatus (Acta A0 #6).
+class LadderReq {
+  static const siFounderLos = 8;
+  static const siFounderRecruits = 1;
+  static const siBrokerClosed = 100;
 }

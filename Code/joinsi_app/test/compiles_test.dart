@@ -27,6 +27,7 @@ import 'package:joinsi/zones/portfolio/usa_map_screen.dart';
 import 'package:joinsi/zones/portfolio/lo_portfolio_screen.dart';
 import 'package:joinsi/zones/portfolio/projector_screen.dart';
 import 'package:joinsi/zones/portfolio/my_business_screen.dart';
+import 'package:joinsi/zones/portfolio/ranking_screen.dart';
 
 void main() {
   test('todo lib/ compila y sus tipos publicos existen', () {
@@ -66,5 +67,30 @@ void main() {
     expect(const LoPortfolioScreen(loId: 'lo01'), isNotNull);
     expect(const ProjectorScreen(), isNotNull);
     expect(const MyBusinessScreen(), isNotNull);
+    expect(const RankingScreen(), isNotNull);
+    // Primitivas de composicion nuevas de A3-R2: si alguna desaparece, media
+    // app deja de compilar y este test lo dice antes que el build de release.
+    expect(const HeroNavy(child: SizedBox()), isNotNull);
+    expect(const WhiteCard(child: SizedBox()), isNotNull);
+    expect(const Kicker('X'), isNotNull);
+    expect(const SectionTitle('X'), isNotNull);
+    expect(const ActivityDot(), isNotNull);
+    expect(const ActivityChip(active: true), isNotNull);
+    expect(const DataChip('X'), isNotNull);
+    expect(const RedPill(label: 'X'), isNotNull);
+    expect(const GoldenRuleCallout(kicker: 'K', body: 'B'), isNotNull);
+    expect(const WindowTrack(monthOf12: 5), isNotNull);
+    expect(const BarRow(label: 'X', value: 1, max: 2, valueText: 'y'),
+        isNotNull);
+    expect(sectionTitleStyle(), isNotNull);
+    expect(kickerStyle(), isNotNull);
+    expect(dataStyle(12), isNotNull);
+    expect(headlineOnNavy(24), isNotNull);
+    expect(seedRivals(), hasLength(5));
+    expect(seedTerritories, hasLength(4));
+    expect(Store.ranking, isNotNull);
+    expect(LadderReq.siFounderLos, 8);
+    expect(Activity.values.length, 2);
+    expect(cutLabel(DateTime(2026, 8, 15)), isNotEmpty);
   });
 }

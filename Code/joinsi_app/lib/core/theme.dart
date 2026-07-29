@@ -31,6 +31,32 @@ ThemeData joinSiTheme() {
 }
 // Cifra de dinero: Poppins 800 amarillo sobre navy (9.4:1)
 TextStyle moneyStyle(double size) => GoogleFonts.poppins(fontWeight: FontWeight.w800, fontSize: size, letterSpacing: -0.5, color: T.yellow);
+
+// ---------------------------------------------------------------------------
+// ESTILOS CANONICOS COMPARTIDOS. Toda la app pasa por aqui: un TextStyle
+// ad-hoc en una pantalla es como la app empezo a divergir la vez pasada.
+// Las familias se resuelven con google_fonts — NUNCA con fontFamily: 'Inter'
+// a pelo, porque esa fuente no esta declarada como asset y caeria al default.
+// ---------------------------------------------------------------------------
+
+/// Titulo de seccion: Barlow Bold 22, en MAYUSCULAS sobre lienzo claro.
+TextStyle sectionTitleStyle({Color color = T.navy}) => GoogleFonts.barlowCondensed(
+    fontWeight: FontWeight.w700, fontSize: 22, height: 1.27, color: color);
+
+/// Kicker: label pequeno en MAYUSCULAS con tracking amplio (firma del sistema).
+/// Sobre navy va cielo; sobre blanco, gris neutro.
+TextStyle kickerStyle({bool onNavy = false}) => GoogleFonts.inter(
+    fontSize: 12, fontWeight: FontWeight.w700, height: 1.33,
+    letterSpacing: 1.2, color: onNavy ? T.sky : T.neutralText);
+
+/// Datos y cuerpo. `dim` = texto secundario gris.
+TextStyle dataStyle(double size, {FontWeight w = FontWeight.w500,
+    Color? color, double height = 1.4}) => GoogleFonts.inter(
+    fontSize: size, fontWeight: w, height: height, color: color ?? T.navy);
+
+/// Titular corto sobre navy (nombres, headlines de tarjeta).
+TextStyle headlineOnNavy(double size) => GoogleFonts.poppins(
+    fontWeight: FontWeight.w800, fontSize: size, height: 1.2, color: T.white);
 // Cifra de dinero sobre lienzo claro: Poppins 800 navy (15.9:1).
 // TODA cifra de dinero pasa por moneyStyle o moneyOnLight — nunca un TextStyle
 // ad-hoc, y nunca rojo bajo 24px (regla dura de contraste).
