@@ -5,6 +5,9 @@
 // arbol completo. Si algo no compila, `flutter test` se cae aqui.
 //
 // Al agregar un archivo nuevo a lib/, agregalo tambien a esta lista.
+// Flutter 3.47 dejo de re-exportar widgets.dart desde flutter_test: sin este
+// import, los `const SizedBox()` de abajo no resuelven y el test no carga.
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:joinsi/main.dart' show JoinSiApp;  // 'show': evita chocar con el main() del test
@@ -33,12 +36,17 @@ void main() {
   test('todo lib/ compila y sus tipos publicos existen', () {
     // Tocar un simbolo de cada libreria evita que el tree-shaking del analizador
     // marque los imports como no usados.
+    //
+    // Los estilos de theme.dart se REFERENCIAN, no se llaman: llamarlos dispara
+    // google_fonts, que descarga la fuente por HTTP sin esperar el resultado.
+    // El test bloquea la red, la descarga falla despues de que el test termino,
+    // y el rojo sale o no segun el reloj (1 de cada 8 corridas, nov-2026).
     expect(const JoinSiApp(), isNotNull);
     expect(const Shell(), isNotNull);
     expect(T.navy, isNotNull);
-    expect(joinSiTheme(), isNotNull);
-    expect(moneyStyle(16), isNotNull);
-    expect(moneyOnLight(16), isNotNull);
+    expect(joinSiTheme, isNotNull);
+    expect(moneyStyle, isNotNull);
+    expect(moneyOnLight, isNotNull);
     expect(l10n, isNotNull);
     expect(Tier.values.length, 3);
     expect(Stage.values.length, 8);
@@ -82,10 +90,10 @@ void main() {
     expect(const WindowTrack(monthOf12: 5), isNotNull);
     expect(const BarRow(label: 'X', value: 1, max: 2, valueText: 'y'),
         isNotNull);
-    expect(sectionTitleStyle(), isNotNull);
-    expect(kickerStyle(), isNotNull);
-    expect(dataStyle(12), isNotNull);
-    expect(headlineOnNavy(24), isNotNull);
+    expect(sectionTitleStyle, isNotNull);
+    expect(kickerStyle, isNotNull);
+    expect(dataStyle, isNotNull);
+    expect(headlineOnNavy, isNotNull);
     expect(seedRivals(), hasLength(5));
     expect(seedTerritories, hasLength(4));
     expect(Store.ranking, isNotNull);
