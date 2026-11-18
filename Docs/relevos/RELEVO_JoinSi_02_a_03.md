@@ -33,3 +33,12 @@
 
 ## 5 · Lo que Fernando espera
 Un CEO de producto que discuta con él, deje todo escrito en el folder y le entregue a Claude Code instrucciones listas para ejecutar. Respuestas cortas y un solo siguiente paso.
+
+## 6 · Actualización 2026-11-18 · A3.1 cerrado
+- Claude Code cerró A3.1: 8 commits (`0b83b7a` a `a9df04e`), `flutter analyze` sin issues por primera vez, 18/18 tests, repo limpio y sincronizado. Run `44244390598` verde.
+- Hallazgo: el build se había roto solo porque Flutter 3.47 exige JDK 21 en el CI. Quedó corregido.
+- Fernando autorizó el APK público: link fijo sin login, https://github.com/ferorduz1/joinsi-app/releases/download/apk-latest/app-release.apk
+- El CEO corrigió `CLAUDE.md`, `README_BUILD.md` y la LTM con las versiones reales (Flutter ≥ 3.44, Dart ≥ 3.12, JDK 21).
+- **Por lo tanto, los puntos 1 a 3 de la sección 4 ya no aplican.** Lo primero para JoinSi #3 es: obtener el APROBADO A3 (Fernando instala desde el link) y escribir la spec de A4.
+- Pendiente de Fernando: abrir Android Studio una vez para tener SDK local (no bloquea nada).
+

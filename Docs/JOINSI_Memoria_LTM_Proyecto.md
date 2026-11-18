@@ -1,5 +1,5 @@
 # JOINSI by HOMESÍ · MEMORIA DE PROYECTO (LTM) v3
-**Corte:** 2026-10-23 · **Escrita por:** arquitecto del chat JoinSi #2, para despertar a JoinSi #3
+**Corte:** 2026-11-18 (A3.1 cerrado) · **Escrita por:** CEO de producto y arquitecto, chat JoinSi #2, para despertar a JoinSi #3
 **Reemplaza:** la LTM del 2026-07-27 (decía "Siguiente: A3") y la LTM v2 del 2026-07-29 que vivía solo en la memoria del proyecto claude.ai.
 **Regla:** esta carpeta `Docs/` del repo es la fuente de verdad del canon. Desde el 2026-10-27 las conversaciones de diseño viven en el proyecto claude.ai "JoinSi · CEO de producto" (instrucciones en `Docs/proyecto_claude/`). El proyecto CEO Agéntico solo guarda un puntero.
 
@@ -9,16 +9,16 @@
 
 | Tema | Estado |
 |---|---|
-| Sprints cerrados | A0, A1, A2, A3 (con A3-R y A3-R2). A4 sin una línea de código |
+| Sprints cerrados | A0, A1, A2, A3 (con A3-R y A3-R2) y **A3.1**. A4 sin una línea de código |
 | Gate A3 | El canon marca A3 ✅. **No consta un "APROBADO A3" de Fernando tras instalar el APK de A3-R2 en su celular.** Confirmarlo es la primera pregunta de JoinSi #3 |
-| Repo | `ferorduz1/joinsi-app`, rama `main`, 5 commits. Último commit de producto: `4f855ed` (A3-R2, 2026-07-28). Último commit: `3a5bfc7` (ARRANQUE_LAPTOP_NUEVO.md, 2026-09-28) |
-| Working tree | `compiles_test.dart` modificado (compatibilidad con Flutter 3.47, +7 líneas reales) y `pubspec.lock` sin versionar. No hay `.gitattributes` ni `core.autocrlf`: el repo guarda LF y varias copias de trabajo en Windows tienen CRLF |
-| Calidad | `flutter analyze`: 0 errores, 0 warnings, 32 info (todos `withOpacity` deprecado). `flutter test`: 18/18 verdes (17 de `canon_test.dart`) |
-| Entorno | Laptop `cl-hb0rl64`, Windows. Flutter 3.47.5, `gh` autenticado como ferorduz1. Android SDK no configurado: no hay APK local, solo el de GitHub Actions |
+| Repo | `ferorduz1/joinsi-app`, rama `main`, limpio y sincronizado. Último commit de producto: `4f855ed` (A3-R2). A3.1: `0b83b7a` a `a9df04e` (8 commits, sin código de producto salvo el barrido `withValues`) |
+| Working tree | Limpio. `.gitattributes` normaliza todo a LF. `pubspec.lock` versionado |
+| Calidad | `flutter analyze`: **sin issues** (primera vez en el proyecto). `flutter test`: 18/18 verdes (17 de `canon_test.dart`) |
+| Entorno | Laptop `cl-hb0rl64`, Windows. Flutter 3.47.5, `gh` autenticado como ferorduz1. Android SDK no configurado (pendiente de Fernando: abrir Android Studio una vez). El lock exige Flutter ≥ 3.44 / Dart ≥ 3.12 |
 | Pantallas | 6 de 27 completas (SiPortfolio P30–P35) + 2 stubs (academy_home, radar_home con botones `onPressed: () {}`) |
 | Assets | Faltan todos: logo oficial, intros 1 y 2, videos V0–V4, ~48 clips de Carlos Mendoza, audio demo |
-| CI | `.github/workflows/build-apk.yml` construye y sube un artifact (requiere login de GitHub para bajarlo). Run #2 (A3-R2) verde en 4m35s, artifact de 22.2 MB. **Los artifacts expiran a los 90 días: el de julio vence alrededor del 27-oct.** El próximo push genera uno nuevo |
-| Repo público | El 2026-07-29 la página de GitHub mostraba el repo como **Public**. El canon, la Memoria y las cifras de compensación son legibles por cualquiera. Decisión pendiente |
+| CI | `.github/workflows/build-apk.yml` con **JDK 21** (con JDK 17 el build se había roto solo al subir Flutter). Cada push a `main` sube el artifact y publica el Release `apk-latest`. Último run: `44244390598`, verde en 4m27s. APK de 47 MB |
+| APK y repo públicos | Link fijo sin login: https://github.com/ferorduz1/joinsi-app/releases/download/apk-latest/app-release.apk · El repo sigue **público**: el canon, la Memoria, las cifras de compensación y el APK son accesibles para cualquiera |
 
 ## 1 · QUÉ ES JOINSI
 
@@ -67,7 +67,7 @@ Documento completo: `Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`. Resumen:
 
 ## 7 · CÓDIGO (Code/joinsi_app)
 
-Requiere Flutter ≥3.29 (Dart ≥3.7). El repo versiona solo `lib/`, `test/`, `assets/`, `pubspec.yaml`; `android/` lo genera el CI. La raíz guarda una copia legacy de A2 (`lib/`, `assets/`, `joinsi_app_A2.zip`): no se borra sin autorización.
+Requiere Flutter ≥ 3.44 (Dart ≥ 3.12) y JDK 21 para compilar Android. El repo versiona solo `lib/`, `test/`, `assets/`, `pubspec.yaml`; `android/` lo genera el CI. La raíz guarda una copia legacy de A2 (`lib/`, `assets/`, `joinsi_app_A2.zip`): no se borra sin autorización.
 
 ```
 lib/core/     tokens.dart (paleta, única fuente de color) · theme.dart · i18n.dart
@@ -92,19 +92,18 @@ test/         canon_test.dart (17) · compiles_test.dart (1)
 
 ## 8 · DEUDA CONOCIDA
 
-- 32 `withOpacity` deprecados (10 archivos de `lib/`). Se barren en A3.1.
 - `nextTouch` existe en el modelo y nadie lo lee. `promise` solo se pinta en radar_home y ningún prospecto semilla lo trae. A4 los reemplaza por el modelo de nodos.
 - Caritas dibujadas con CustomPainter, no ilustradas. `AvatarSpec.photoPath` ya soporta assets si se generan.
 - `RankingScreen` solo se abre desde Mi Negocio (chip de estatus); no tiene ruta propia en `shell.dart`.
 - Fuente A1 en `assets/` de la raíz legacy: A3.1 la mueve a `Docs/`.
-- `build-apk_NUEVO.yml` (Release público `apk-latest`) en la raíz, inactivo. El puente de Cowork no puede escribir en `.github/workflows/` (protegido a propósito).
+- El puente de Cowork no puede escribir en `.github/workflows/` (protegido a propósito): los cambios de CI los hace Claude Code.
 - Notificaciones del sistema (P26/P41) piden permisos en `AndroidManifest` y ajuste de Gradle; como `android/` lo genera el CI, el workflow tendría que parchearlos.
 
 ## 9 · DECISIONES ABIERTAS (con default; se resuelven al despertar JoinSi #3)
 
 1. **Gate A3:** ¿Fernando instaló y aprobó el APK de A3-R2? Default: instalar el APK que genere el push de A3.1 y dar "APROBADO A3" antes de abrir A4.
 2. **Compensación del LO:** 225 bps (Acta A0) o 275 bps con fee de US$650 (oferta de octubre). Afecta el pitch de P24, V3, V4 y el árbol de Carlos (nodo N05). Default: manda la oferta de octubre, confirmada en vivo por Fernando.
-3. **Repo público:** default hacerlo privado. El APK se baja con `gh run download` desde el laptop (gh ya autenticado) y no hace falta el Release público.
+3. **Repo público:** Fernando autorizó publicar el APK en un link público (A3.1). Queda abierto si el código y el canon siguen públicos. Default: pasar el repo a privado; el Release público dejaría de bajarse sin login, y el APK se distribuiría con `gh run download` o por Google Drive.
 4. **Detalles del funnel (§8 del canon):** default umbrales A/B 3 días, C 5, D 5 tras C, E 7 tras D; N30/60/90 desde la asignación; al firmar G el LO pasa solo a SiPortfolio; nomenclatura A–E / F–G / N30-N60-N90.
 5. **Alcance de A4:** default centro de alertas dentro de la app (notificaciones del sistema en subsprint A4-N); lanzador de llamada simulado; contenido del playbook y del pre-funnel redactado por el constructor desde A1 y marcado "pendiente de validar con María Teresa".
 
@@ -114,8 +113,8 @@ test/         canon_test.dart (17) · compiles_test.dart (1)
 |---|---|---|
 | A0–A2 | Acta, prompts, andamiaje | ✅ |
 | A3 / A3-R / A3-R2 | SiPortfolio 6 pantallas sobre Stitch | ✅ código y CI · ⏳ APROBADO en celular |
-| **A3.1** | Higiene del repo, sin código de producto (`Docs/PROMPT_A3-1_Higiene_Claude_Code.md`) | **← SIGUIENTE** |
-| A4-plan | Plan escrito por el arquitecto: orden de pantallas, modelos, tests nuevos, semilla v5. Sin código | después de A3.1 |
+| A3.1 | Higiene del repo, sin código de producto | ✅ 2026-11 |
+| **A4-spec** | `Docs/specs/SPEC_A4_SiRadar.md`, escrita por el CEO de producto: orden de pantallas, modelos, tests nuevos, semilla v5. Sin código | **← SIGUIENTE** (y en paralelo, el APROBADO A3) |
 | A4 | SiRadar funcional con el funnel | tras aprobar el plan |
 | A4-S → A4-R | Prompts Stitch de SiRadar (Fable 5 + STYLE SYSTEM) → capa visual | tras aprobar A4 funcional |
 | A4-N | Notificaciones del sistema + parche del CI | subsprint |

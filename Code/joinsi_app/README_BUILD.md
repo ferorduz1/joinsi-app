@@ -7,9 +7,12 @@ Se instala por **sideload**: no requiere cuenta de Play Store.
 
 ## 1 · Requisitos (una sola vez)
 
-- **Flutter 3.29 o superior** (el proyecto exige Dart `>=3.7.0`).
+- **Flutter 3.44 o superior (Dart 3.12+)**: es lo que exige el `pubspec.lock` versionado.
   Verifica con `flutter --version`; si está por debajo, `flutter upgrade`.
-- Android SDK + un JDK 17. `flutter doctor` te dice qué falta.
+- Android SDK + **JDK 21** (Flutter 3.47 ya no compila Android con JDK 17). `flutter doctor` te dice qué falta.
+
+> **Sin Android SDK local también hay APK:** cada push a `main` lo compila GitHub Actions y lo publica en un link fijo, descargable desde el celular sin login:
+> https://github.com/ferorduz1/joinsi-app/releases/download/apk-latest/app-release.apk
 
 ## 2 · Generar el andamiaje Android
 
@@ -68,7 +71,8 @@ Para probar en caliente con el teléfono conectado por USB: `flutter run --relea
 | P31 Ficha 360° | `lo_portfolio_screen.dart` | Embudo, ventana de 12 meses, run-rate demostrado vs declarado |
 | P32 Dashboard | `portfolio_home.dart` | Odómetro, COBRAR funcional, accesos a mapa/proyector/negocio |
 | P33 Proyector | `projector_screen.dart` | Apilamiento y acantilado del mes 12 |
-| P34/P35 Mi negocio | `my_business_screen.dart` | Escalera de estatus + ganado por estado/tier/costa |
+| P34 Ranking & Escalera | `ranking_screen.dart` | Escalera SiPartner → SiFounder → SiBroker con medallas, ranking al corte, territorios (se abre desde Mi negocio) |
+| P35 Mi negocio | `my_business_screen.dart` | Resumen ejecutivo: ganado por estado, tier y costa; LOs activos |
 | Caritas | `widgets/carita_avatar.dart`, `avatar_picker.dart` | 8 expresiones × 4 formas × 5 combos, o foto real de la galería |
 
 **Reset de datos:** la semilla está versionada (`Store._seedVersion`). Al subir

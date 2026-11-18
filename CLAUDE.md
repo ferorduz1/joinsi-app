@@ -116,9 +116,9 @@ La app **no puede sentirse corporativa ni fría**. Voz de tutor sabio en todos l
 | A0 | Acta, árbol de 27 pantallas, design system | ✅ |
 | A1 | Prompts Stitch + briefs de video + árbol de voces | ✅ |
 | A2 | Andamiaje Flutter | ✅ |
-| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ código, rediseñado en A3-R2 sobre el Stitch aprobado y compilado en CI · ⏳ falta el `APROBADO A3` de Fernando en su celular |
-| **A3.1** | Higiene del repo, sin código de producto: `Docs/PROMPT_A3-1_Higiene_Claude_Code.md` | ← **SIGUIENTE** |
-| **A4** | **SiRadar** con el **Funnel de Nurturing** (`Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`, **reemplaza el pipeline de 8 etapas y el `enum Stage`**): nodos A–E / F–G / N30-N60-N90, máximo 20 prospectos vivos, inactivar exige SQL + nota, lanzador de llamada, playbook contextual, pre-funnel social, centro de alertas | después de A3.1, del plan del arquitecto y de su aprobación |
+| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ código, rediseñado en A3-R2 sobre el Stitch aprobado · ⏳ falta el `APROBADO A3` de Fernando con el APK del link público (§6) |
+| A3.1 | Higiene del repo: LF con `.gitattributes`, `withValues`, `pubspec.lock` versionado, docs del CEO, APK público, JDK 21 | ✅ commits `0b83b7a` a `a9df04e` · `flutter analyze` sin issues · 18/18 tests · run `44244390598` verde |
+| **A4** | **SiRadar** con el **Funnel de Nurturing** (`Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`, **reemplaza el pipeline de 8 etapas y el `enum Stage`**): nodos A–E / F–G / N30-N60-N90, máximo 20 prospectos vivos, inactivar exige SQL + nota, lanzador de llamada, playbook contextual, pre-funnel social, centro de alertas | ← **SIGUIENTE**: el CEO de producto escribe `Docs/specs/SPEC_A4_SiRadar.md` y Fernando la aprueba. **No construyas A4 antes** |
 | A5 | SiAcademy: player V0–V4, simulador de objeciones, árbol de llamada (48 clips), time blocking, Tamagotchi, graduación | pendiente |
 | A6 | Onboarding P00–P03, pulido, gamificación transversal, APK firmado | pendiente |
 
@@ -169,7 +169,11 @@ flutter test
 para. No lo "ajustes" para que pase.
 
 Build del APK: `flutter build apk --release` → `build/app/outputs/flutter-apk/app-release.apk`.
-Requiere **Flutter 3.29+ (Dart >= 3.7)** por `CardThemeData` en `ThemeData.cardTheme`.
+Requiere **Flutter ≥ 3.44 (Dart ≥ 3.12)**, que es lo que exige el `pubspec.lock` versionado (el laptop usa Flutter 3.47.5). El CI compila Android con **JDK 21**: Flutter 3.47 ya no compila con JDK 17.
+
+**APK para el celular:** cada push a `main` publica el build en un Release de tag fijo `apk-latest`. El link no cambia y se baja sin login:
+https://github.com/ferorduz1/joinsi-app/releases/download/apk-latest/app-release.apk
+El repo es público: cualquiera con el link puede bajar el APK.
 
 ---
 

@@ -88,3 +88,11 @@
 - Se emitieron: `Docs/00_METODO_DE_TRABAJO.md`, `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` v2 (rol de CEO de producto y arquitecto), `Docs/JOINSI_Contexto_HOMESI.md`, copia del P1B, `Docs/relevos/RELEVO_JoinSi_02_a_03.md` e instrucciones del proyecto en `Docs/proyecto_claude/`.
 - `CLAUDE.md` gana una regla: el constructor commitea primero, sin editarlos, los cambios del CEO en `Docs/` que encuentre al empezar cualquier tarea.
 
+## 2026-11-18 · A3.1 cerrado por Claude Code
+
+- 8 commits: docs del CEO, test estable en Flutter 3.47, `.gitattributes` a LF, `pubspec.lock` versionado, `withOpacity` a `withValues`, A1 movido a `Docs/`, APK público y JDK 21. `flutter analyze` quedó sin issues por primera vez; 18/18 tests.
+- **Decisión de Fernando (reportada por Claude Code):** activar el Release público `apk-latest`. El APK se baja desde el celular sin login. Riesgo aceptado: el repo es público y cualquiera con el link puede bajar el APK. Sigue abierto si el código y el canon deben pasar a privado.
+- Hallazgo: el CI se rompió solo porque Flutter 3.47 exige JDK 21. Se subió a 21. **Lección:** el CI usa Flutter `stable` sin fijar versión; cualquier salto de Flutter puede romper el build sin tocar código.
+- Desviaciones aceptadas del prompt A3.1: el orden de commits cambió porque varios pasos ya estaban hechos desde antes, y no se reescribió historial ya publicado.
+- El CEO actualizó `CLAUDE.md`, `README_BUILD.md` (versiones reales y P34 separada de P35) y la LTM.
+
