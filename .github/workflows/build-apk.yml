@@ -22,11 +22,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      # JDK 21, no 17: el andamiaje que genera el Flutter stable de nov-2026 trae
+      # un Android lint que llama List.removeLast() (API de Java 21). Con JDK 17
+      # el build muere en :image_picker_android:lintVitalAnalyzeRelease.
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: '21'
 
       - name: Set up Flutter (stable, Dart >=3.7)
         uses: subosito/flutter-action@v2
