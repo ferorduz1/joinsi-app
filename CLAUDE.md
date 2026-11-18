@@ -116,8 +116,9 @@ La app **no puede sentirse corporativa ni fría**. Voz de tutor sabio en todos l
 | A0 | Acta, árbol de 27 pantallas, design system | ✅ |
 | A1 | Prompts Stitch + briefs de video + árbol de voces | ✅ |
 | A2 | Andamiaje Flutter | ✅ |
-| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ — rediseñado en A3-R2 sobre el Stitch aprobado |
-| **A4** | **SiRadar**: pipeline de nodos, lanzador de llamada con auto-stage, playbook contextual, pre-funnel social, alertas Tamagotchi | ← **SIGUIENTE** |
+| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ código, rediseñado en A3-R2 sobre el Stitch aprobado y compilado en CI · ⏳ falta el `APROBADO A3` de Fernando en su celular |
+| **A3.1** | Higiene del repo, sin código de producto: `Docs/PROMPT_A3-1_Higiene_Claude_Code.md` | ← **SIGUIENTE** |
+| **A4** | **SiRadar** con el **Funnel de Nurturing** (`Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`, **reemplaza el pipeline de 8 etapas y el `enum Stage`**): nodos A–E / F–G / N30-N60-N90, máximo 20 prospectos vivos, inactivar exige SQL + nota, lanzador de llamada, playbook contextual, pre-funnel social, centro de alertas | después de A3.1, del plan del arquitecto y de su aprobación |
 | A5 | SiAcademy: player V0–V4, simulador de objeciones, árbol de llamada (48 clips), time blocking, Tamagotchi, graduación | pendiente |
 | A6 | Onboarding P00–P03, pulido, gamificación transversal, APK firmado | pendiente |
 
@@ -174,6 +175,8 @@ Requiere **Flutter 3.29+ (Dart >= 3.7)** por `CardThemeData` en `ThemeData.cardT
 
 ## 7 · GOBERNANZA — cómo se trabaja aquí
 
+- **Roles.** El CEO de producto y arquitecto (chat JoinSi #N, proyecto claude.ai "JoinSi · CEO de producto") escribe `Docs/`, este archivo y las tareas en `Docs/prompts/`. El constructor (Claude Code) ejecuta esas tareas, escribe el código y commitea. **No edites `Docs/` ni este archivo salvo que una tarea lo ordene.** Método completo: `Docs/00_METODO_DE_TRABAJO.md`.
+- **Commit de los documentos del CEO.** Al empezar cualquier tarea, si `git status` muestra cambios en `Docs/` o en este archivo que tú no hiciste, commitéalos primero tal cual, sin editarlos, con el mensaje `docs: actualización del CEO de producto`.
 - **Gates.** Cada sprint cierra con un `APROBADO A-N` explícito del Director. Sin eso, no se avanza al siguiente.
 - **Pausa socrática: máximo 5 preguntas, cada una con un default propuesto.** No interrogatorios.
 - **Las correcciones del Director son canon inmediato**, sin discusión ni re-litigio.
@@ -191,7 +194,18 @@ Requiere **Flutter 3.29+ (Dart >= 3.7)** por `CardThemeData` en `ThemeData.cardT
 | `Docs/JOINSI_A0_Acta_y_Arquitectura_v1-1.md` | Acta de decisiones + árbol de 27 pantallas + design system completo |
 | `Docs/JOINSI_Memoria_LTM_Proyecto.md` | Memoria larga: modelo de negocio, zonas, estado por sprint |
 | `Docs/JOINSI_Sistema_Grafismos_Video.md` | Sistema de grafismos para las piezas de video |
-| `assets/JOINSI_A1_Prompts_Stitch_Higgsfield_Voces.md` | Prompts Stitch, briefs V0–V4, árbol de voces de "Carlos Mendoza" |
+| `Docs/00_METODO_DE_TRABAJO.md` | Roles, ciclo de co-diseño → spec → prompt → construcción → gate, plantillas y ritual de relevo |
+| `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` | Arranque del CEO de producto y arquitecto |
+| `Docs/specs/` | Specs de cada funcionalidad (BORRADOR · EN DISCUSIÓN · APROBADA). **Solo construyes specs APROBADAS** |
+| `Docs/prompts/` | Tus tareas. Se ejecutan con "Lee y ejecuta Docs/prompts/…" |
+| `Docs/relevos/` | Notas de entrega entre chats del CEO |
+| `Docs/JOINSI_Contexto_HOMESI.md` | Contexto de negocio de HOMESÍ con fecha por dato |
+| `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` | Sistema de marca completo (fuente visual) |
+| `Docs/JOINSI_Bitacora_de_Decisiones.md` | Qué se decidió, cuándo y por qué |
+| `Docs/JOINSI_Filosofia_y_Journey.md` | Idea, propuesta de valor y journey de SiPartner, prospecto y reclutado |
+| `Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md` | Canon del funnel que construye A4 |
+| `Docs/JOINSI_A3_Rediseno_Stitch_SiPortfolio.md` | Lógica de diseño (Fable 5), STYLE SYSTEM para Stitch y prompts ST-07–ST-12 |
+| `Docs/JOINSI_A1_Prompts_Stitch_Higgsfield_Voces.md` | Prompts Stitch, briefs V0–V4, árbol de voces de "Carlos Mendoza" |
 | `Code/joinsi_app/README_BUILD.md` | Cómo compilar el APK y qué protege cada test |
 
 **Ante cualquier conflicto entre este archivo y los documentos de `Docs/`, mandan los documentos

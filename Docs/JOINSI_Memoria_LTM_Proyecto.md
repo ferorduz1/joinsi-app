@@ -1,63 +1,152 @@
-# JOINSI by HOMESI — MEMORIA DE PROYECTO (LTM)
-## Para pegar en memoria de proyecto y abrir chat nuevo sin pérdida de fidelidad
-**Corte:** 2026-07-27 · **Estado:** A0 ✅ · A1 ✅ · A2 ✅ · Siguiente: **A3**
+# JOINSI by HOMESÍ · MEMORIA DE PROYECTO (LTM) v3
+**Corte:** 2026-10-23 · **Escrita por:** arquitecto del chat JoinSi #2, para despertar a JoinSi #3
+**Reemplaza:** la LTM del 2026-07-27 (decía "Siguiente: A3") y la LTM v2 del 2026-07-29 que vivía solo en la memoria del proyecto claude.ai.
+**Regla:** esta carpeta `Docs/` del repo es la fuente de verdad del canon. Desde el 2026-10-27 las conversaciones de diseño viven en el proyecto claude.ai "JoinSi · CEO de producto" (instrucciones en `Docs/proyecto_claude/`). El proyecto CEO Agéntico solo guarda un puntero.
 
 ---
 
-## 1 · QUÉ ES ESTE PIPELINE
+## 0 · ESTADO VERIFICADO (2026-10-23, de primera mano en C:\Joinsi)
 
-**JoinSi by HOMESI:** app **nativa Android (Flutter → APK sideload)**, prototipo de alta fidelidad con funcionalidad aparente y datos locales (Hive, sin backend). Empaqueta el conocimiento de la reclutadora (María Teresa) para crear **reclutadores externos virales** de Loan Officers del nicho latino. Aprobada por Jorge; no requiere venderse internamente. El prototipo es la semilla del producto real (el código Flutter no se bota).
-
-**Modelo de negocio del usuario de la app:** recibe MQLs de LOs desde HOMESI → prospecta (pre-funnel social + llamadas + playbook) → el LO firma → cuando el LO cierra sus 2 primeros closed loans el reclutador cobra **$500+$500**, luego **$200/caso durante 12 meses**. Portafolio apilable.
-**Escalera de estatus:** **SiPartner** (medalla casa BRONCE) → **SiFounder** (PLATA, recluta SiPartners) → **SiBroker** (ORO, territorios exclusivos + override de red).
-**Comp del LO reclutado:** hasta **225 bps** sobre loan amount ($6,750 en loan de $300K), incluye Core Service HOMESI 90 días. Hook de venta = pricing (con 225 bps el LO aún ofrece ~5.5% al borrower — cifras de V3 se validan contra Matriz de Programas EN VIVO antes de rodar).
-
-## 2 · LAS 3 ZONAS (27 pantallas, árbol completo en Acta A0 v1.1)
-
-- **SiAcademy** (P10–P17): mapa de aprendizaje tipo Duolingo, 4 videos + quiz, Simulador de Objeciones (LAER, canon H-03), **Simulador de Llamada** (audio ramificado, ver §4), Simulador Time Blocking, **Modo Tamagotchi** (leads que se enfrían si no cumples promesas de recontacto), examen + Zoom, graduación con medalla bronce.
-- **SiRadar** (P20–P26): NUNCA llamarlo CRM. Fichas MQL (foto, NMLS, tier Boutique/Mid/Top, score de calor, redes), ficha 360°, pipeline de nodos rojos conectados (Assigned → Pre-funnel → Call 1 Pitch → Follow-up → Call 3 → **Meeting with Production Director** → Deciding → SIGNED), lanzador de llamada con auto-avance de stage, playbook contextual por etapa, pre-funnel social, alertas Tamagotchi reales.
-- **SiPortfolio** (P30–P35): mapa USA navy con caritas por estado (filtros: estado/tier/programa/costa), ficha de portafolio (leads/pre-approvals/ratified/closed, mes N de 12, ganado con ese LO), dashboard de dinero (odómetro amarillo, "me deben", proyectado, botón COBRAR), proyector de ingresos apilables, ranking y escalera a SiFounder/SiBroker.
-
-## 3 · CANON VISUAL (subordinado al P1B — ya en memoria de proyecto)
-
-- **Manda el P1B Sistema de Marca HOMESÍ Oficial + Guía Visual.** Logo primario = **casa en círculo rojo** (`logo_oficial_transparente.png`, Higgsfield media_id `86a96e38-bb95-4f80-9605-a19a3b4b5f13`); chevrón = ícono "Growth", nunca logo. "Powered by Supreme Lending" SOLO en el lockup, jamás en copy.
-- **Tipografía:** Poppins 700/800 (sustituto declarado de Articulat CF) + Barlow Bold + Inter + Kalam condimento. **Cero Playfair, cero Outfit, paleta sand/gold anulada.**
-- **Paleta:** navy #001A40 · red #FF4040 · sky #A6DEFF · yellow #F8C845 · white #FCFCFA + neutros (#6B7280, #E5E7EB, #E8EAF0 solo competidor/disabled). Dinero siempre amarillo sobre navy. Prohibido blanco sobre amarillo/sky. Viz con paleta validada claro/oscuro del P1B.
-- **Excepción ratificada (APROBADO A0):** metales bronce #B0793A / plata #B9C2CC / oro #D9A93D SOLO para MedallaCasa.
-- **Intros de video canonizados:** Intro 1 = `INTRO_Logo_HOMESI_Animado__2_.html` (wordmark, tagline "We say SÍ when others say no", capturar 1920×1080) · Intro 2 = animación del logo casa. Ambos abren V0–V4.
-- Elenco videos: latino colombiano multiétnico (nunca homogéneo), inglés hablado, subtítulos grandes con "SÍ" y cifras en amarillo, "HOMESÍ" se pronuncia en cámara, cero estética corporativa/AI.
-
-## 4 · SIMULADOR DE LLAMADA (decisión técnica cerrada)
-
-Higgsfield NO hace conversación viva en tiempo real (es fábrica de audio TTS/video). Prototipo = **árbol de audio ramificado**: personaje "Carlos Mendoza" (LO boutique Houston, escéptico amable, protege su database), **14 nodos × 3 variantes ≈ 48 clips** generados con `generate_audio`. Diseño anti-convencional: interrumpe, recibe otra llamada (N09), nodo-trampa de overpromising (N07), nodo Tamagotchi vivo (N11), y la victoria es AGENDAR la reunión con el Director de Producción, no cerrar. Scoring: Pitch · Precisión · LAER · Resiliencia; aprueba con FIN-ganado ≥75%. Post-MVP: se enchufa Gemini Live (Google Pro) sobre la misma pantalla. Árbol completo en el archivo A1.
-
-## 5 · STACK Y ESTADO DEL CÓDIGO (A2 entregado)
-
-`joinsi_app_A2.zip` — proyecto Flutter compilable:
-- `lib/core/tokens.dart` (P1B completo) · `theme.dart` (tipografía y componentes) · `i18n.dart` (toggle ES/EN vivo; términos de industria SIEMPRE en inglés: Loan Officer, pre-approval, ratified, pricing, pipeline, NMLS, bps, SiPartner/Founder/Broker)
-- `lib/models/loan_officer.dart` (tiers, stages, proyección canónica $1,000 + $200×resto) · `lib/data/seed_los.dart` (**24 LOs semilla, 12 estados, 3 tiers**) · `store.dart` (Hive persistente: LOs, $18,450 año, $2,100 me deben, racha 7, progreso 62%)
-- `lib/shell.dart` (nav 3 zonas, lockup, arranca en SiPortfolio) + 3 pantallas home funcionales (dashboard dinero con odómetro animado, fichas MQL con tiers, mapa de aprendizaje con progreso)
-- `README_BUILD.md`: compilación vía **Claude Code de escritorio** ("instala Flutter y compila `flutter build apk --release`") → APK sideload sin Play Store. **No existe cuenta ni MCP de Flutter; Stitch tampoco tiene MCP** (web con Gmail, pegar prompts a mano).
-
-## 6 · SPRINTS RESTANTES
-
-| Sprint | Entregable |
+| Tema | Estado |
 |---|---|
-| **A3** ← siguiente | SiPortfolio completo: **mapa USA SVG interactivo con caritas**, ficha portafolio 360°, proyector de apilamiento, gráfica de barras con paleta viz. Primera build "wow" |
-| A4 | SiRadar completo: pipeline de nodos, lanzador de llamada con auto-stage, playbook contextual, pre-funnel, alertas Tamagotchi (flutter_local_notifications) |
-| A5 | SiAcademy completa: player de videos V0–V4, simulador de objeciones, árbol de llamada con los 48 clips, time blocking, Tamagotchi, graduación |
-| A6 | Onboarding (P00–P03 con video V0), pulido, gamificación transversal, APK firmado |
-| Paralelo | Fernando ejecuta prompts A1 en Stitch (referencias) y Higgsfield (videos + 48 voces) |
+| Sprints cerrados | A0, A1, A2, A3 (con A3-R y A3-R2). A4 sin una línea de código |
+| Gate A3 | El canon marca A3 ✅. **No consta un "APROBADO A3" de Fernando tras instalar el APK de A3-R2 en su celular.** Confirmarlo es la primera pregunta de JoinSi #3 |
+| Repo | `ferorduz1/joinsi-app`, rama `main`, 5 commits. Último commit de producto: `4f855ed` (A3-R2, 2026-07-28). Último commit: `3a5bfc7` (ARRANQUE_LAPTOP_NUEVO.md, 2026-09-28) |
+| Working tree | `compiles_test.dart` modificado (compatibilidad con Flutter 3.47, +7 líneas reales) y `pubspec.lock` sin versionar. No hay `.gitattributes` ni `core.autocrlf`: el repo guarda LF y varias copias de trabajo en Windows tienen CRLF |
+| Calidad | `flutter analyze`: 0 errores, 0 warnings, 32 info (todos `withOpacity` deprecado). `flutter test`: 18/18 verdes (17 de `canon_test.dart`) |
+| Entorno | Laptop `cl-hb0rl64`, Windows. Flutter 3.47.5, `gh` autenticado como ferorduz1. Android SDK no configurado: no hay APK local, solo el de GitHub Actions |
+| Pantallas | 6 de 27 completas (SiPortfolio P30–P35) + 2 stubs (academy_home, radar_home con botones `onPressed: () {}`) |
+| Assets | Faltan todos: logo oficial, intros 1 y 2, videos V0–V4, ~48 clips de Carlos Mendoza, audio demo |
+| CI | `.github/workflows/build-apk.yml` construye y sube un artifact (requiere login de GitHub para bajarlo). Run #2 (A3-R2) verde en 4m35s, artifact de 22.2 MB. **Los artifacts expiran a los 90 días: el de julio vence alrededor del 27-oct.** El próximo push genera uno nuevo |
+| Repo público | El 2026-07-29 la página de GitHub mostraba el repo como **Public**. El canon, la Memoria y las cifras de compensación son legibles por cualquiera. Decisión pendiente |
 
-## 7 · GOBERNANZA (idéntica al pipeline Playbook)
+## 1 · QUÉ ES JOINSI
 
-Gates "APROBADO A-N" · pausa socrática máx 5 preguntas con default · correcciones = canon inmediato · cirugía sobre lo aprobado (nunca redibujar) · camera-ready siempre · voz de tutor sabio en textos de la app (nunca corporativo — arquetipo Local Hero) · cifras financieras leídas en vivo, nunca de memoria · mobile-first voz-a-texto de Fernando.
+App **nativa Android (Flutter → APK sideload)**, prototipo de alta fidelidad con datos locales (Hive) y **sin backend**. Empaqueta el conocimiento de la reclutadora (María Teresa) para fabricar **reclutadores externos** de Loan Officers del nicho latino: los **SiPartners**. Aprobada por Jorge. El código es la semilla del producto real.
 
-## 8 · ARCHIVOS DEL PIPELINE (subir todos a memoria de proyecto)
+**Por qué existe (contexto de negocio):** el reclutamiento de LOs con un reclutador de salario fijo no rindió (EE. UU. primero, offshore después). Jorge bajó los márgenes de la división para que el LO gane más, lo que exige volumen. JoinSi convierte ese costo fijo en una fuerza distribuida de costo variable: el SiPartner cobra solo cuando su LO cierra. La forma del pago copia el bono de la reclutadora offshore (premio alto en los dos primeros cierres de cada LO, luego tarifa menor durante 12 meses).
 
-1. `JOINSI_A0_Acta_y_Arquitectura_v1-1.md` (acta + árbol 27 pantallas + design system)
-2. `JOINSI_A1_Prompts_Stitch_Higgsfield_Voces.md` (8 prompts Stitch + briefs V0–V4 + árbol Carlos)
-3. `joinsi_app_A2.zip` (código Flutter)
-4. Este documento (LTM)
+**Economía del SiPartner (canon, protegida por `canon_test.dart`):** `payoutFor(closed)`: 0 → $0 · 1 → $500 · 2 → $1,000 · n≥2 → $1,000 + (n−2)×$200, durante 12 meses por LO. La firma no paga: paga el primer cierre.
+**Escalera:** SiPartner (bronce) → SiFounder (plata: 8 LOs + 1 SiPartner reclutado) → SiBroker (oro: 100 closed + territorio exclusivo + override de red, override sin cifra definida).
+**Compensación del LO:** el Acta A0 dice 225 bps ($6,750 en un loan de $300K) con Core Service 90 días. La oferta que Fernando describió en octubre de 2026 dice 275 bps completos para el LO y un fee plano de US$650 por caso cerrado para HOMESÍ. **Conflicto abierto:** ver §9.
 
-**Prompt de apertura del nuevo chat:** "Retoma el pipeline JoinSi con la Memoria LTM y las actas A0/A1 de memoria de proyecto. Ejecuta A3."
+## 2 · LAS TRES PERSONAS
+
+- **SiPartner:** usuario de la app. Estudiante bilingüe, joven, sin experiencia hipotecaria, que nunca ha tenido un activo.
+- **Prospecto:** Loan Officer licenciado (boutique o mid volume del mercado latino) que el SiPartner contacta. Nunca abre JoinSi.
+- **Reclutado:** el LO firmado. Para HOMESÍ es cliente y empresario. En la app del SiPartner aparece como un activo de su portafolio. El LO nunca ve esa vista.
+
+Narrativa completa: `Docs/JOINSI_Filosofia_y_Journey.md`.
+
+## 3 · ZONAS Y PANTALLAS (árbol de 27 en el Acta A0 §3, IDs inmutables)
+
+- **Zona 0 · Umbral (P00–P03):** splash, landing con V0, onboarding de 3 láminas, registro. Sprint A6.
+- **SiAcademy (P10–P17):** camino tipo Duolingo, 4 videos con quiz, simulador de objeciones (LAER), simulador de llamada (árbol de audio de Carlos Mendoza), time blocking, Tamagotchi de leads, examen, graduación. Sprint A5.
+- **SiRadar (P20–P26):** nunca "CRM". Fichas MQL, ficha 360°, **Funnel de Nurturing (reemplaza P22)**, lanzador de llamada, playbook contextual, pre-funnel social, alertas. Sprint A4.
+- **SiPortfolio (P30–P35):** construida y rediseñada sobre Stitch. P34 y P35 son pantallas distintas y **no se vuelven a fusionar**.
+- **Transversal (P40–P41):** ajustes y notificaciones.
+
+## 4 · SEMÁNTICA DEL PORTAFOLIO (decisión de Fernando, vinculante)
+
+1. Los LOs son un **activo financiero** del SiPartner: SiPortfolio se lee como un portafolio tipo brokerage.
+2. Cada LO tiene **estado de actividad**: enviando casos o sin casos este mes. Es derivado, nunca almacenado.
+3. El dinero tiene **tres estados**: causado (solo crece) = cobrado + en camino. "En camino" son casos cerrados que se pagan al corte cada 30 días (pay period 2).
+4. Agregaciones por LO y por grupo (estado, tier, costa, programa).
+
+## 5 · FUNNEL DE NURTURING DE PROSPECTOS (canon decidido, insumo de A4)
+
+Documento completo: `Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`. Resumen: una pantalla con un tren de nodos por prospecto vivo (**máximo 20**). Nodos que controla el SiPartner: **A** post social · **B** DM con pitch · **C** cold call 1 · **D** cold call 2 · **E** SQL (formulario real). Nodos de solo lectura que mueve HOMESÍ: **F** reunión con el Director de Producción · **G** firma. Nurturing a **N30/N60/N90** días. Inactivar un prospecto lo devuelve a HOMESÍ y exige **SQL + nota con la razón**. El tablero mide al SiPartner solo por A–E. **El `enum Stage` de 8 etapas se retira** y pasa a ser derivado.
+
+**Nurturing post-firma (backlog, no ejecutar sin decisión):** chat mensual, visita semanal al dashboard del LO, escalación a business plan tras 30 días sin ratificados, chat mensual de conocimiento. Check "hecho offline" + ícono de salud. Comparte componentes con el funnel.
+
+## 6 · CANON VISUAL Y LÓGICA DE DISEÑO
+
+- Manda el **P1B** (resumen operativo en `CLAUDE.md` §3). Logo = casa en círculo rojo. Poppins + Barlow + Inter + Kalam. Paleta de 5 colores + 3 neutros. Metales solo en `MedallaCasa` y solo en P34.
+- **Lógica de diseño (autorada por Fable 5, vinculante):** héroe navy primero · una sola cifra amarilla grande por pantalla · un solo rojo accionable por pantalla · actividad en cielo, nunca se atenúa el dinero · densidad creciente hacia abajo · viz monocroma por entidad · carita en 4 escalas (36/48/56/76-80). Documento: `Docs/JOINSI_A3_Rediseno_Stitch_SiPortfolio.md`, que trae el **STYLE SYSTEM reutilizable para Stitch**.
+- Los tokens Material-3 que Stitch genera (`#faf9fc`, `#bb0019`, Montserrat…) **no son canon**. Si Stitch contradice el P1B, gana el P1B.
+
+## 7 · CÓDIGO (Code/joinsi_app)
+
+Requiere Flutter ≥3.29 (Dart ≥3.7). El repo versiona solo `lib/`, `test/`, `assets/`, `pubspec.yaml`; `android/` lo genera el CI. La raíz guarda una copia legacy de A2 (`lib/`, `assets/`, `joinsi_app_A2.zip`): no se borra sin autorización.
+
+```
+lib/core/     tokens.dart (paleta, única fuente de color) · theme.dart · i18n.dart
+lib/models/   loan_officer.dart: payoutFor, marginalPayoutFor, earned, collectedAmount,
+              pendingAmount, activity, remainingWindowValue, monthlyRemaining, applyCut ·
+              RivalSiPartner · Territory · LadderReq · enum Stage (8, a retirar en A4)
+lib/data/     store.dart (_seedVersion = 4; agregados, corte, ranking) · seed_los.dart
+              (7 firmados + 17 prospectos + 5 rivales + 4 territorios) · usa_map_data.dart (generado)
+lib/widgets/  carita_avatar · avatar_picker · medalla_casa · common.dart
+lib/zones/    portfolio/ (6 pantallas) · radar/radar_home (stub) · academy/academy_home (stub)
+test/         canon_test.dart (17) · compiles_test.dart (1)
+```
+
+**Decisiones de código vinculantes:**
+1. `payoutFor` es la única fuente del dinero. Ninguna pantalla replica la fórmula.
+2. Cobrado y pendiente se derivan de un conteo (`collectedCases`): `causado = cobrado + en camino` se cumple por construcción.
+3. `activity` se deriva de `casesThisPeriod`.
+4. El ranking (P34) es dato semilla declarado, enmarcado como posiciones al corte. El usuario se inserta por su `earned` real.
+5. Semilla: 7 LOs · 61 closed · 6 estados · causado $16,400 = cobrado $14,300 + en camino $2,100 · activos 5/7 · ventana restante $17,000 · proyector $27,800 · usuario #4 en el ranking.
+6. Zoom del mapa: pines de tamaño constante con `FittedBox`. No regresionar.
+7. Si `canon_test.dart` falla, se rompió el modelo de negocio: se reporta y se para, no se ajusta el test.
+
+## 8 · DEUDA CONOCIDA
+
+- 32 `withOpacity` deprecados (10 archivos de `lib/`). Se barren en A3.1.
+- `nextTouch` existe en el modelo y nadie lo lee. `promise` solo se pinta en radar_home y ningún prospecto semilla lo trae. A4 los reemplaza por el modelo de nodos.
+- Caritas dibujadas con CustomPainter, no ilustradas. `AvatarSpec.photoPath` ya soporta assets si se generan.
+- `RankingScreen` solo se abre desde Mi Negocio (chip de estatus); no tiene ruta propia en `shell.dart`.
+- Fuente A1 en `assets/` de la raíz legacy: A3.1 la mueve a `Docs/`.
+- `build-apk_NUEVO.yml` (Release público `apk-latest`) en la raíz, inactivo. El puente de Cowork no puede escribir en `.github/workflows/` (protegido a propósito).
+- Notificaciones del sistema (P26/P41) piden permisos en `AndroidManifest` y ajuste de Gradle; como `android/` lo genera el CI, el workflow tendría que parchearlos.
+
+## 9 · DECISIONES ABIERTAS (con default; se resuelven al despertar JoinSi #3)
+
+1. **Gate A3:** ¿Fernando instaló y aprobó el APK de A3-R2? Default: instalar el APK que genere el push de A3.1 y dar "APROBADO A3" antes de abrir A4.
+2. **Compensación del LO:** 225 bps (Acta A0) o 275 bps con fee de US$650 (oferta de octubre). Afecta el pitch de P24, V3, V4 y el árbol de Carlos (nodo N05). Default: manda la oferta de octubre, confirmada en vivo por Fernando.
+3. **Repo público:** default hacerlo privado. El APK se baja con `gh run download` desde el laptop (gh ya autenticado) y no hace falta el Release público.
+4. **Detalles del funnel (§8 del canon):** default umbrales A/B 3 días, C 5, D 5 tras C, E 7 tras D; N30/60/90 desde la asignación; al firmar G el LO pasa solo a SiPortfolio; nomenclatura A–E / F–G / N30-N60-N90.
+5. **Alcance de A4:** default centro de alertas dentro de la app (notificaciones del sistema en subsprint A4-N); lanzador de llamada simulado; contenido del playbook y del pre-funnel redactado por el constructor desde A1 y marcado "pendiente de validar con María Teresa".
+
+## 10 · RUTA
+
+| Sprint | Entregable | Estado |
+|---|---|---|
+| A0–A2 | Acta, prompts, andamiaje | ✅ |
+| A3 / A3-R / A3-R2 | SiPortfolio 6 pantallas sobre Stitch | ✅ código y CI · ⏳ APROBADO en celular |
+| **A3.1** | Higiene del repo, sin código de producto (`Docs/PROMPT_A3-1_Higiene_Claude_Code.md`) | **← SIGUIENTE** |
+| A4-plan | Plan escrito por el arquitecto: orden de pantallas, modelos, tests nuevos, semilla v5. Sin código | después de A3.1 |
+| A4 | SiRadar funcional con el funnel | tras aprobar el plan |
+| A4-S → A4-R | Prompts Stitch de SiRadar (Fable 5 + STYLE SYSTEM) → capa visual | tras aprobar A4 funcional |
+| A4-N | Notificaciones del sistema + parche del CI | subsprint |
+| A5 | SiAcademy (requiere videos y 48 clips) | pendiente |
+| A6 | Umbral P00–P03, pulido, APK firmado | pendiente |
+
+**Regla de secuencia (vinculante, de Fernando):** funcional → aprobación → Stitch → capa visual → solo entonces APK para el celular. El APK que llega al teléfono refleja lo aprobado en UI, UX y funcionalidad.
+
+## 11 · GOBERNANZA
+
+Gates "APROBADO A-N" explícitos de Fernando · pausa socrática de máximo 5 preguntas con default · las correcciones de Fernando son canon inmediato · cirugía sobre lo aprobado · camera-ready · cifras financieras leídas en vivo de la fuente · Fernando escribe desde el móvil por voz a texto · **el arquitecto escribe el canon y los prompts; el constructor (Claude Code) escribe código y commitea; Fernando aprueba**. Rol del chat: **CEO de producto y arquitecto**, que co-diseña con Fernando. Método completo, plantillas y ritual de relevo en `Docs/00_METODO_DE_TRABAJO.md`.
+
+## 12 · MAPA DE DOCUMENTOS
+
+| Archivo | Para qué |
+|---|---|
+| `Docs/00_METODO_DE_TRABAJO.md` | Roles, ciclo, plantillas de spec y prompt, ritual de relevo |
+| `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` | Arranque del CEO de producto y arquitecto: orden de lectura, primeras acciones |
+| `Docs/relevos/` | Notas de entrega entre chats (última: `RELEVO_JoinSi_02_a_03.md`) |
+| `Docs/specs/` | Specs (hoy: `SPEC_A5_Simulador_de_Llamada.md` v0.1) |
+| `Docs/JOINSI_Contexto_HOMESI.md` | Contexto de negocio de HOMESÍ, fechado |
+| `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` | Sistema de marca completo |
+| `Docs/proyecto_claude/` | Instrucciones y pasos para el proyecto claude.ai |
+| `Docs/JOINSI_Memoria_LTM_Proyecto.md` | Este documento: estado y canon resumido |
+| `Docs/JOINSI_Bitacora_de_Decisiones.md` | Qué se decidió, cuándo y en qué chat |
+| `Docs/JOINSI_Filosofia_y_Journey.md` | Idea, propuesta de valor y journey de las tres personas |
+| `Docs/JOINSI_A0_Acta_y_Arquitectura_v1-1.md` | Acta, árbol de 27 pantallas, design system |
+| `Docs/JOINSI_A1_Prompts_Stitch_Higgsfield_Voces.md` | Prompts Stitch ST-01–ST-06, briefs V0–V4, árbol de Carlos (llega a Docs/ en A3.1) |
+| `Docs/JOINSI_A3_Rediseno_Stitch_SiPortfolio.md` | Lógica de diseño Fable 5, STYLE SYSTEM, ST-07–ST-12 |
+| `Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md` | Canon del funnel que construye A4 |
+| `Docs/JOINSI_Sistema_Grafismos_Video.md` | Grafismos de los videos |
+| `Docs/PROMPT_A3-1_Higiene_Claude_Code.md` | Tarea lista para el constructor |
+| `CLAUDE.md` (raíz) | Contrato operativo del constructor |
+| `Code/joinsi_app/README_BUILD.md` | Cómo compilar y qué protege cada test |
