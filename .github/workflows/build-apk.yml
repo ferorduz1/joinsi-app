@@ -6,6 +6,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# contents: write es necesario para que el GITHUB_TOKEN automatico pueda
+# publicar/actualizar el Release "apk-latest" mas abajo.
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -48,9 +53,28 @@ jobs:
       - name: Build release APK
         run: flutter build apk --release
 
-      - name: Upload APK
+      - name: Upload APK (artifact interno de Actions, requiere login GitHub)
         uses: actions/upload-artifact@v4
         with:
           name: joinsi-app-release
           path: Code/joinsi_app/build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
+
+      # Publica el mismo APK como asset de un Release publico de tag fijo
+      # "apk-latest". En un repo publico esto SI se descarga con un link
+      # directo desde el celular, sin login de GitHub y sin descomprimir --
+      # a diferencia del artifact de arriba. Se sobre-escribe en cada build,
+      # asi que el link de abajo siempre apunta al ultimo main.
+      - name: Publish as public Release (descarga directa sin login)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: JoinSi APK (build automatico)
+          body: |
+            APK generado automaticamente desde el commit ${{ github.sha }}.
+            Este link siempre apunta al build mas reciente de main:
+            https://github.com/${{ github.repository }}/releases/download/apk-latest/app-release.apk
+          files: Code/joinsi_app/build/app/outputs/flutter-apk/app-release.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
