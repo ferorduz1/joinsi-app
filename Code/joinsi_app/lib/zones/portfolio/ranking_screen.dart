@@ -147,7 +147,7 @@ class _RankingScreenState extends State<RankingScreen> {
           Positioned(
             left: inset, top: medal / 2 - 3, width: railW,
             child: Container(height: 6,
-                decoration: BoxDecoration(color: T.sky.withOpacity(.18),
+                decoration: BoxDecoration(color: T.sky.withValues(alpha: .18),
                     borderRadius: BorderRadius.circular(999))),
           ),
           Positioned(
@@ -210,7 +210,7 @@ class _RankingScreenState extends State<RankingScreen> {
       ],
       Text(name, textAlign: TextAlign.center,
           style: headlineOnNavy(13).copyWith(
-              color: reached ? T.white : T.white.withOpacity(.72))),
+              color: reached ? T.white : T.white.withValues(alpha: .72))),
       if (chips.isNotEmpty) ...[
         const SizedBox(height: T.sp8),
         for (final ch in chips) Padding(
@@ -223,8 +223,8 @@ class _RankingScreenState extends State<RankingScreen> {
   Widget _skyChip(String text) => Container(
         padding: const EdgeInsets.symmetric(horizontal: T.sp8, vertical: T.sp4),
         decoration: BoxDecoration(
-            color: T.sky.withOpacity(.18),
-            border: Border.all(color: T.sky.withOpacity(.45)),
+            color: T.sky.withValues(alpha: .18),
+            border: Border.all(color: T.sky.withValues(alpha: .45)),
             borderRadius: BorderRadius.circular(999)),
         child: Text(text, style: dataStyle(10, w: FontWeight.w700, color: T.sky)
             .copyWith(letterSpacing: .6)),
@@ -234,12 +234,12 @@ class _RankingScreenState extends State<RankingScreen> {
   Widget _reqChip(String text, {required bool on}) => Container(
         padding: const EdgeInsets.symmetric(horizontal: T.sp8, vertical: T.sp4),
         decoration: BoxDecoration(
-            border: Border.all(color: T.sky.withOpacity(.30)),
+            border: Border.all(color: T.sky.withValues(alpha: .30)),
             borderRadius: BorderRadius.circular(T.rChip)),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           Container(width: 6, height: 6, decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: on ? T.sky : T.sky.withOpacity(.30))),
+              color: on ? T.sky : T.sky.withValues(alpha: .30))),
           const SizedBox(width: T.sp4),
           Flexible(child: Text(text, maxLines: 1, overflow: TextOverflow.ellipsis,
               style: dataStyle(10, w: FontWeight.w700, color: T.sky))),
@@ -291,8 +291,8 @@ class _RankingScreenState extends State<RankingScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(T.sp12),
       decoration: BoxDecoration(
-          color: T.sky.withOpacity(.08),
-          border: Border.all(color: T.sky.withOpacity(.20)),
+          color: T.sky.withValues(alpha: .08),
+          border: Border.all(color: T.sky.withValues(alpha: .20)),
           borderRadius: BorderRadius.circular(T.rChip)),
       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Icon(Icons.info_outline, size: 18, color: T.sky),
@@ -427,7 +427,7 @@ class _RankingScreenState extends State<RankingScreen> {
     return Container(
       padding: const EdgeInsets.all(T.sp16),
       decoration: BoxDecoration(
-          color: T.sky.withOpacity(.22),
+          color: T.sky.withValues(alpha: .22),
           border: Border.all(color: T.navy),
           borderRadius: BorderRadius.circular(T.rCard),
           boxShadow: T.shadowMd),
@@ -491,9 +491,9 @@ class _RankingScreenState extends State<RankingScreen> {
                   width: 56, height: 56, alignment: Alignment.center,
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: free ? T.sky.withOpacity(.25) : T.competitorGray,
+                      color: free ? T.sky.withValues(alpha: .25) : T.competitorGray,
                       border: Border.all(
-                          color: free ? T.navy.withOpacity(.20) : T.hairline)),
+                          color: free ? T.navy.withValues(alpha: .20) : T.hairline)),
                   child: Text(t.code, style: headlineOnNavy(18).copyWith(
                       color: free ? T.navy : T.neutralText)),
                 ),

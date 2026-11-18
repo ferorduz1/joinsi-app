@@ -24,7 +24,7 @@ class _MedalPainter extends CustomPainter {
     final r = s.width / 2;
     canvas.drawCircle(c, r, Paint()..color = metal);
     canvas.drawCircle(c, r * .88, Paint()
-      ..color = T.navy.withOpacity(.22)
+      ..color = T.navy.withValues(alpha: .22)
       ..style = PaintingStyle.stroke..strokeWidth = s.width * .035);
 
     // Casa: techo triangular + cuerpo, en navy sobre el metal.

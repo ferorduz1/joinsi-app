@@ -167,7 +167,7 @@ class _LoPortfolioScreenState extends State<LoPortfolioScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(T.rBig),
           border: Border.all(color: T.sky, width: 2),
-          boxShadow: [BoxShadow(color: T.sky.withOpacity(.35),
+          boxShadow: [BoxShadow(color: T.sky.withValues(alpha: .35),
               blurRadius: 16, spreadRadius: 1)],
         ),
         child: CaritaAvatar(spec: l.avatar, size: 80),
@@ -326,7 +326,7 @@ class _FunnelBar extends StatelessWidget {
             duration: T.durMid + delay, curve: T.easeBrand,
             builder: (_, w, __) => Container(
               height: 18, width: w.clamp(4.0, c.maxWidth),
-              decoration: BoxDecoration(color: T.sky.withOpacity(opacity),
+              decoration: BoxDecoration(color: T.sky.withValues(alpha: opacity),
                   borderRadius: BorderRadius.circular(999)),
             ),
           ),

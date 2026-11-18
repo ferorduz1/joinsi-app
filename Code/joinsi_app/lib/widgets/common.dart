@@ -123,7 +123,7 @@ class ActivityDot extends StatelessWidget {
   Widget build(BuildContext context) => Container(
     width: size, height: size,
     decoration: BoxDecoration(color: T.sky, shape: BoxShape.circle,
-        boxShadow: [BoxShadow(color: T.sky.withOpacity(.6),
+        boxShadow: [BoxShadow(color: T.sky.withValues(alpha: .6),
             blurRadius: size, spreadRadius: size / 4)]));
 }
 
@@ -228,7 +228,7 @@ class GoldenRuleCallout extends StatelessWidget {
     width: double.infinity,
     padding: const EdgeInsets.all(T.sp16),
     decoration: BoxDecoration(
-      color: T.red.withOpacity(.04),
+      color: T.red.withValues(alpha: .04),
       border: const Border(left: BorderSide(color: T.red, width: 4)),
       borderRadius: const BorderRadius.horizontal(
           right: Radius.circular(T.rChip)),

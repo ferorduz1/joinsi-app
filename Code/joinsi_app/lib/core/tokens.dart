@@ -27,7 +27,7 @@ abstract class T {
   // translucido. Existen porque #0F2A55 a mano daba 1.21:1 y el mapa no se leia.
   static final mapLand = Color.lerp(navy, sky, .14)!;   // territorio sin LOs
   static final mapEdge = Color.lerp(navy, sky, .32)!;   // frontera de estado
-  static final track = navy.withOpacity(.10);           // riel de progreso
+  static final track = navy.withValues(alpha: .10);           // riel de progreso
   static const s1d = Color(0xFF4A86D6), s2d = Color(0xFFD64C4C),
       s3d = Color(0xFF8A73D1), s4d = Color(0xFF17906F), s5d = Color(0xFFB98418);
   // modo claro
@@ -42,9 +42,9 @@ abstract class T {
   static const rChip = 8.0, rCard = 16.0, rBig = 24.0;
 
   // Sombras navy translucido (jamas negro)
-  static final shadowSm = [BoxShadow(color: navy.withOpacity(.06), blurRadius: 2, offset: const Offset(0, 1))];
-  static final shadowMd = [BoxShadow(color: navy.withOpacity(.08), blurRadius: 12, offset: const Offset(0, 4))];
-  static final shadowLg = [BoxShadow(color: navy.withOpacity(.12), blurRadius: 32, offset: const Offset(0, 12))];
+  static final shadowSm = [BoxShadow(color: navy.withValues(alpha: .06), blurRadius: 2, offset: const Offset(0, 1))];
+  static final shadowMd = [BoxShadow(color: navy.withValues(alpha: .08), blurRadius: 12, offset: const Offset(0, 4))];
+  static final shadowLg = [BoxShadow(color: navy.withValues(alpha: .12), blurRadius: 32, offset: const Offset(0, 12))];
 
   // Movimiento de marca
   static const easeBrand = Cubic(.22, 1, .36, 1);

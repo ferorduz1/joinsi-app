@@ -15,7 +15,7 @@ class RadarHome extends StatelessWidget {
     final prospects = Store.los().where((l) => l.stage != Stage.signed).toList();
     return ListView(padding: const EdgeInsets.all(T.sp16), children: [
       Container(padding: const EdgeInsets.all(T.sp12),
-          decoration: BoxDecoration(color: T.sky.withOpacity(.35),
+          decoration: BoxDecoration(color: T.sky.withValues(alpha: .35),
               borderRadius: BorderRadius.circular(T.rCard)),
           child: Text(l10n.t('HOMESI assigned you 3 new prospects today',
               'HOMESI te asignó 3 prospectos nuevos hoy'),

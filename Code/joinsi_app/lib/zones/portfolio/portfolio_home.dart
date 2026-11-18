@@ -271,7 +271,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
       Container(
         width: 32, height: 32, alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: T.red.withOpacity(.10), shape: BoxShape.circle),
+            color: T.red.withValues(alpha: .10), shape: BoxShape.circle),
         child: Icon(icon, color: T.red, size: 18)),
       const SizedBox(width: T.sp12),
       Expanded(child: Text(label,

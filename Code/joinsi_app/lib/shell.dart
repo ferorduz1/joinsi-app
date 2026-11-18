@@ -38,7 +38,7 @@ class _ShellState extends State<Shell> {
       body: AnimatedSwitcher(duration: T.durMid, switchInCurve: T.easeBrand, child: pages[i]),
       bottomNavigationBar: NavigationBar(
         selectedIndex: i, onDestinationSelected: (v) => setState(() => i = v),
-        indicatorColor: T.red.withOpacity(.12),
+        indicatorColor: T.red.withValues(alpha: .12),
         destinations: [
           NavigationDestination(icon: const Icon(Icons.school_outlined),
               selectedIcon: const Icon(Icons.school, color: T.red),

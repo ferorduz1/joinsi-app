@@ -135,7 +135,7 @@ class _ProjectorScreenState extends State<ProjectorScreen> {
     final total = base + added;
     if (total <= 0) {
       return Container(height: 8, decoration: BoxDecoration(
-          color: T.sky.withOpacity(.25),
+          color: T.sky.withValues(alpha: .25),
           borderRadius: BorderRadius.circular(999)));
     }
     return ClipRRect(
@@ -176,7 +176,7 @@ class _ProjectorScreenState extends State<ProjectorScreen> {
         data: SliderTheme.of(context).copyWith(
           trackHeight: 4,
           activeTrackColor: T.red, inactiveTrackColor: T.hairline,
-          thumbColor: T.red, overlayColor: T.red.withOpacity(.12),
+          thumbColor: T.red, overlayColor: T.red.withValues(alpha: .12),
           thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10)),
         child: Slider(value: v, min: min, max: max, divisions: div,
             onChanged: onCh,
@@ -258,7 +258,7 @@ class _ProjectorScreenState extends State<ProjectorScreen> {
             )),
           ])),
         const SizedBox(height: T.sp8),
-        Container(height: 1, color: T.sky.withOpacity(.25)),
+        Container(height: 1, color: T.sky.withValues(alpha: .25)),
         const SizedBox(height: T.sp8),
         Row(children: [
           for (var m = 0; m < 12; m++) Expanded(child: Text('${m + 1}',

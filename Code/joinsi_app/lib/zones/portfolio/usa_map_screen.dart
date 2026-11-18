@@ -202,7 +202,7 @@ class _UsaMapScreenState extends State<UsaMapScreen> {
 
   Widget _chip(String label, bool on, VoidCallback onTap, {int? count}) {
     final dead = !on && count == 0;   // llevaria a un mapa vacio
-    final fg = on ? T.navy : (dead ? T.sky.withOpacity(.40) : T.sky);
+    final fg = on ? T.navy : (dead ? T.sky.withValues(alpha: .40) : T.sky);
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -212,7 +212,7 @@ class _UsaMapScreenState extends State<UsaMapScreen> {
           color: on ? T.yellow : Colors.transparent,
           borderRadius: BorderRadius.circular(T.rChip),
           border: Border.all(width: 1,
-              color: on ? T.yellow : T.sky.withOpacity(dead ? .20 : .45)),
+              color: on ? T.yellow : T.sky.withValues(alpha: dead ? .20 : .45)),
         ),
         child: Text(count == null ? label : '$label · $count',
             style: dataStyle(12, w: FontWeight.w700, color: fg)),
@@ -309,7 +309,7 @@ class _UsaMapScreenState extends State<UsaMapScreen> {
       shape: BoxShape.circle, color: T.white,
       border: Border.all(color: lo.isActive ? T.sky : T.neutralText, width: 2),
       boxShadow: lo.isActive
-          ? [BoxShadow(color: T.sky.withOpacity(.40),
+          ? [BoxShadow(color: T.sky.withValues(alpha: .40),
               blurRadius: 15, spreadRadius: 4)]
           : T.shadowSm,
     ),
@@ -400,9 +400,9 @@ class _UsaMapScreenState extends State<UsaMapScreen> {
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: T.sp12, vertical: T.sp8),
       decoration: BoxDecoration(
-        color: T.vizDarkSurface.withOpacity(.92),
+        color: T.vizDarkSurface.withValues(alpha: .92),
         borderRadius: BorderRadius.circular(T.rChip),
-        border: Border.all(color: T.sky.withOpacity(.30))),
+        border: Border.all(color: T.sky.withValues(alpha: .30))),
       child: Column(mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(mainAxisSize: MainAxisSize.min, children: [
@@ -426,7 +426,7 @@ class _UsaMapScreenState extends State<UsaMapScreen> {
   );
 
   Widget _emptyState() => Container(
-    color: T.navy.withOpacity(.82),
+    color: T.navy.withValues(alpha: .82),
     alignment: Alignment.center,
     padding: const EdgeInsets.all(T.sp32),
     child: Column(mainAxisSize: MainAxisSize.min, children: [
