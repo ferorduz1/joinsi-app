@@ -1,16 +1,16 @@
 # JOINSI by HOMESÍ · MEMORIA DE PROYECTO (LTM) v3
-**Corte:** 2026-11-18 (A3.1 cerrado) · **Escrita por:** CEO de producto y arquitecto, chat JoinSi #2, para despertar a JoinSi #3
+**Corte:** 2026-11-19 (APROBADO A3 registrado; spec A4 en BORRADOR) · **Escrita por:** CEO de producto y arquitecto, chat JoinSi #2, para despertar a JoinSi #3
 **Reemplaza:** la LTM del 2026-07-27 (decía "Siguiente: A3") y la LTM v2 del 2026-07-29 que vivía solo en la memoria del proyecto claude.ai.
 **Regla:** esta carpeta `Docs/` del repo es la fuente de verdad del canon. Desde el 2026-10-27 las conversaciones de diseño viven en el proyecto claude.ai "JoinSi · CEO de producto" (instrucciones en `Docs/proyecto_claude/`). El proyecto CEO Agéntico solo guarda un puntero.
 
 ---
 
-## 0 · ESTADO VERIFICADO (2026-10-23, de primera mano en C:\Joinsi)
+## 0 · ESTADO VERIFICADO (2026-11-19, de primera mano en C:\Joinsi, `main` en `8f7b161`)
 
 | Tema | Estado |
 |---|---|
 | Sprints cerrados | A0, A1, A2, A3 (con A3-R y A3-R2) y **A3.1**. A4 sin una línea de código |
-| Gate A3 | El canon marca A3 ✅. **No consta un "APROBADO A3" de Fernando tras instalar el APK de A3-R2 en su celular.** Confirmarlo es la primera pregunta de JoinSi #3 |
+| Gate A3 | **APROBADO A3** por Fernando el 2026-11-18 en el chat de Claude Code (*"A,B,C todas si. Aprobado A3, arrancar ejecuta a3.1"*), junto con A, B y C de A3.1. Lo dio antes de ver el APK público. **La revisión visual en el celular se hace con el primer APK de A4** (el de A4.1) |
 | Repo | `ferorduz1/joinsi-app`, rama `main`, limpio y sincronizado. Último commit de producto: `4f855ed` (A3-R2). A3.1: `0b83b7a` a `a9df04e` (8 commits, sin código de producto salvo el barrido `withValues`) |
 | Working tree | Limpio. `.gitattributes` normaliza todo a LF. `pubspec.lock` versionado |
 | Calidad | `flutter analyze`: **sin issues** (primera vez en el proyecto). `flutter test`: 18/18 verdes (17 de `canon_test.dart`) |
@@ -101,20 +101,23 @@ test/         canon_test.dart (17) · compiles_test.dart (1)
 
 ## 9 · DECISIONES ABIERTAS (con default; se resuelven al despertar JoinSi #3)
 
-1. **Gate A3:** ¿Fernando instaló y aprobó el APK de A3-R2? Default: instalar el APK que genere el push de A3.1 y dar "APROBADO A3" antes de abrir A4.
+1. ~~Gate A3~~ **Cerrado 2026-11-18:** APROBADO A3 dado en el chat de Claude Code, antes de ver el APK público. Pendiente solo la revisión visual en el celular con el primer APK de A4 (A4.1); un defecto ahí se corrige como cirugía (A3-R3), no reabre el gate.
 2. **Compensación del LO:** 225 bps (Acta A0) o 275 bps con fee de US$650 (oferta de octubre). Afecta el pitch de P24, V3, V4 y el árbol de Carlos (nodo N05). Default: manda la oferta de octubre, confirmada en vivo por Fernando.
 3. **Repo público:** Fernando autorizó publicar el APK en un link público (A3.1). Queda abierto si el código y el canon siguen públicos. Default: pasar el repo a privado; el Release público dejaría de bajarse sin login, y el APK se distribuiría con `gh run download` o por Google Drive.
 4. **Detalles del funnel (§8 del canon):** default umbrales A/B 3 días, C 5, D 5 tras C, E 7 tras D; N30/60/90 desde la asignación; al firmar G el LO pasa solo a SiPortfolio; nomenclatura A–E / F–G / N30-N60-N90.
-5. **Alcance de A4:** default centro de alertas dentro de la app (notificaciones del sistema en subsprint A4-N); lanzador de llamada simulado; contenido del playbook y del pre-funnel redactado por el constructor desde A1 y marcado "pendiente de validar con María Teresa".
+5. **Alcance de A4:** resuelto en `SPEC_A4_SiRadar.md` v0.1 (BORRADOR): alertas dentro de la app (notificaciones del sistema en A4-N), lanzador de llamada simulado, sin permisos nuevos. Cambio frente al default anterior: el contenido del playbook y del pre-funnel lo redacta **el CEO** (no el constructor) en `Docs/specs/A4_Contenido_Playbook_PreFunnel.md`, marcado "pendiente de validar con María Teresa".
+6. **Versión de Flutter del CI (D1):** fijarla a 3.47.5 con `PROMPT_A3-2`. Default: ejecutar el prompt antes de A4.1, para que el APK de la revisión visual salga del Flutter con que se prueba.
+7. **Contenido de A4 que depende de Fernando:** preguntas del SQL (borrador pendiente de María Teresa), borrado de datos del celular con la semilla v5 y dialer mock. Ver `Docs/specs/SPEC_A4_SiRadar.md` §6.
 
 ## 10 · RUTA
 
 | Sprint | Entregable | Estado |
 |---|---|---|
 | A0–A2 | Acta, prompts, andamiaje | ✅ |
-| A3 / A3-R / A3-R2 | SiPortfolio 6 pantallas sobre Stitch | ✅ código y CI · ⏳ APROBADO en celular |
+| A3 / A3-R / A3-R2 | SiPortfolio 6 pantallas sobre Stitch | ✅ **APROBADO A3** (2026-11-18) · revisión visual en el celular con el APK de A4.1 |
 | A3.1 | Higiene del repo, sin código de producto | ✅ 2026-11 |
-| **A4-spec** | `Docs/specs/SPEC_A4_SiRadar.md`, escrita por el CEO de producto: orden de pantallas, modelos, tests nuevos, semilla v5. Sin código | **← SIGUIENTE** (y en paralelo, el APROBADO A3) |
+| A3-2 | Fijar Flutter 3.47.5 en el CI (`Docs/prompts/PROMPT_A3-2_Fijar_Flutter_CI.md`) | **← SIGUIENTE** |
+| **A4-spec** | `Docs/specs/SPEC_A4_SiRadar.md` v0.1: P20–P26, modelo, semilla v5, tests, partición A4.1–A4.4. Sin código | BORRADOR 2026-11-19 · esperando las 5 respuestas de Fernando |
 | A4 | SiRadar funcional con el funnel | tras aprobar el plan |
 | A4-S → A4-R | Prompts Stitch de SiRadar (Fable 5 + STYLE SYSTEM) → capa visual | tras aprobar A4 funcional |
 | A4-N | Notificaciones del sistema + parche del CI | subsprint |
@@ -134,7 +137,9 @@ Gates "APROBADO A-N" explícitos de Fernando · pausa socrática de máximo 5 pr
 | `Docs/00_METODO_DE_TRABAJO.md` | Roles, ciclo, plantillas de spec y prompt, ritual de relevo |
 | `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` | Arranque del CEO de producto y arquitecto: orden de lectura, primeras acciones |
 | `Docs/relevos/` | Notas de entrega entre chats (última: `RELEVO_JoinSi_02_a_03.md`) |
-| `Docs/specs/` | Specs (hoy: `SPEC_A5_Simulador_de_Llamada.md` v0.1) |
+| `Docs/specs/` | Specs (hoy: `SPEC_A4_SiRadar.md` v0.1 BORRADOR y `SPEC_A5_Simulador_de_Llamada.md` v0.1) |
+| `Docs/prompts/` | Tareas para Claude Code (hoy: `PROMPT_A3-2_Fijar_Flutter_CI.md`) |
+| `Docs/constructor/` | Reportes largos e insumos del constructor. El CEO los lee y no los edita |
 | `Docs/JOINSI_Contexto_HOMESI.md` | Contexto de negocio de HOMESÍ, fechado |
 | `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` | Sistema de marca completo |
 | `Docs/proyecto_claude/` | Instrucciones y pasos para el proyecto claude.ai |

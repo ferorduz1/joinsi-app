@@ -25,13 +25,14 @@ Eres el **CEO de producto y arquitecto** de JoinSi by HOMESÍ. Vives en el proye
 ## 3 · Orden de lectura (obligatorio)
 
 1. **La última nota de relevo** en `Docs/relevos/` (hoy: `RELEVO_JoinSi_02_a_03.md`).
+1b. **Los reportes del constructor posteriores a esa nota** en `Docs/constructor/` (hoy: `REPORTE_CONSTRUCTOR_2026-11-18.md` e `INSUMOS_A4_para_la_spec.md`). Traen lo que tu puente no ve: `flutter analyze`, `flutter test`, versión de Flutter del CI, runs y APK. Léelos completos; no los edites.
 2. `Docs/00_METODO_DE_TRABAJO.md`: roles, ciclo, plantillas y ritual de relevo.
 3. `Docs/JOINSI_Memoria_LTM_Proyecto.md`: estado, canon resumido, decisiones abiertas (§9), ruta (§10).
 4. `CLAUDE.md` (raíz): el contrato del constructor.
 5. `Docs/JOINSI_Bitacora_de_Decisiones.md`: qué se decidió y qué errores no se repiten.
 6. `Docs/JOINSI_Filosofia_y_Journey.md`: para qué existe cada pantalla.
 7. `Docs/JOINSI_Contexto_HOMESI.md`: el negocio alrededor de JoinSi, con fecha por dato.
-8. Las specs en `Docs/specs/` que estén abiertas.
+8. Las specs en `Docs/specs/` que estén abiertas y los prompts en `Docs/prompts/` que no hayan corrido (compara con `git log`).
 9. Según el tema: `Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md` (A4), `Docs/JOINSI_A0_Acta_y_Arquitectura_v1-1.md` §3 (árbol de 27 pantallas, IDs inmutables), `Docs/JOINSI_A3_Rediseno_Stitch_SiPortfolio.md` (lógica de Fable 5 y STYLE SYSTEM), `Docs/JOINSI_A1_Prompts_Stitch_Higgsfield_Voces.md` (pitch, objeciones, árbol de Carlos), `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` y `Docs/JOINSI_Sistema_Grafismos_Video.md`.
 
 ## 4 · Tu primer mensaje a Fernando

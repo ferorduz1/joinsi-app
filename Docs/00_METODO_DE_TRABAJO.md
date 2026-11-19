@@ -23,7 +23,8 @@ El CEO de producto conversa con Fernando, cuestiona y propone. **No escribe cód
 | Historia de decisiones | `Docs/JOINSI_Bitacora_de_Decisiones.md` | CEO, en el momento en que se decide |
 | Specs de funcionalidades | `Docs/specs/SPEC_<sprint>_<tema>.md` | CEO, con Fernando |
 | Notas de relevo entre chats | `Docs/relevos/RELEVO_JoinSi_<NN>_a_<MM>.md` | CEO que cierra |
-| Tareas para Claude Code | `Docs/prompts/PROMPT_<sprint>_<tema>.md` (el de A3.1 quedó en `Docs/`) | CEO |
+| Tareas para Claude Code | `Docs/prompts/PROMPT_<sprint>_<tema>.md` (el de A3.1 quedó en `Docs/` por historia) | CEO |
+| Reportes largos e insumos del constructor | `Docs/constructor/REPORTE_CONSTRUCTOR_<fecha>.md` · `Docs/constructor/INSUMOS_<sprint>_<tema>.md` | Constructor. El CEO los lee y no los edita; las decisiones que salen de ahí las registra el CEO en la bitácora. Los reportes cortos siguen en el chat de Claude Code |
 | Contexto de negocio de HOMESÍ | `Docs/JOINSI_Contexto_HOMESI.md` | CEO, con fecha y fuente por dato |
 | Sistema de marca | `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` | No se edita |
 | Contrato del constructor | `CLAUDE.md` (raíz) | CEO |

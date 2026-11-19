@@ -116,7 +116,7 @@ La app **no puede sentirse corporativa ni fría**. Voz de tutor sabio en todos l
 | A0 | Acta, árbol de 27 pantallas, design system | ✅ |
 | A1 | Prompts Stitch + briefs de video + árbol de voces | ✅ |
 | A2 | Andamiaje Flutter | ✅ |
-| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ código, rediseñado en A3-R2 sobre el Stitch aprobado · ⏳ falta el `APROBADO A3` de Fernando con el APK del link público (§6) |
+| A3 | **SiPortfolio completo** (6 pantallas + Ranking) | ✅ **APROBADO A3** (Fernando, 2026-11-18, en el chat de Claude Code, junto con A, B y C de A3.1; lo dio antes de ver el APK público). La revisión visual en el celular se hace con el primer APK de A4 (el de A4.1) |
 | A3.1 | Higiene del repo: LF con `.gitattributes`, `withValues`, `pubspec.lock` versionado, docs del CEO, APK público, JDK 21 | ✅ commits `0b83b7a` a `a9df04e` · `flutter analyze` sin issues · 18/18 tests · run `44244390598` verde |
 | **A4** | **SiRadar** con el **Funnel de Nurturing** (`Docs/JOINSI_Canon_Funnel_Nurturing_Prospectos.md`, **reemplaza el pipeline de 8 etapas y el `enum Stage`**): nodos A–E / F–G / N30-N60-N90, máximo 20 prospectos vivos, inactivar exige SQL + nota, lanzador de llamada, playbook contextual, pre-funnel social, centro de alertas | ← **SIGUIENTE**: el CEO de producto escribe `Docs/specs/SPEC_A4_SiRadar.md` y Fernando la aprueba. **No construyas A4 antes** |
 | A5 | SiAcademy: player V0–V4, simulador de objeciones, árbol de llamada (48 clips), time blocking, Tamagotchi, graduación | pendiente |
@@ -180,6 +180,7 @@ El repo es público: cualquiera con el link puede bajar el APK.
 ## 7 · GOBERNANZA — cómo se trabaja aquí
 
 - **Roles.** El CEO de producto y arquitecto (chat JoinSi #N, proyecto claude.ai "JoinSi · CEO de producto") escribe `Docs/`, este archivo y las tareas en `Docs/prompts/`. El constructor (Claude Code) ejecuta esas tareas, escribe el código y commitea. **No edites `Docs/` ni este archivo salvo que una tarea lo ordene.** Método completo: `Docs/00_METODO_DE_TRABAJO.md`.
+- **Tu carpeta en `Docs/`.** Tus reportes largos y los insumos que le dejas al CEO van en `Docs/constructor/` (`REPORTE_CONSTRUCTOR_<fecha>.md`, `INSUMOS_<sprint>_<tema>.md`). Ahí sí escribes sin que una tarea lo ordene. El CEO los lee y no los edita; las decisiones que salen de ellos las registra él en la bitácora.
 - **Commit de los documentos del CEO.** Al empezar cualquier tarea, si `git status` muestra cambios en `Docs/` o en este archivo que tú no hiciste, commitéalos primero tal cual, sin editarlos, con el mensaje `docs: actualización del CEO de producto`.
 - **Gates.** Cada sprint cierra con un `APROBADO A-N` explícito del Director. Sin eso, no se avanza al siguiente.
 - **Pausa socrática: máximo 5 preguntas, cada una con un default propuesto.** No interrogatorios.
@@ -202,6 +203,7 @@ El repo es público: cualquiera con el link puede bajar el APK.
 | `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` | Arranque del CEO de producto y arquitecto |
 | `Docs/specs/` | Specs de cada funcionalidad (BORRADOR · EN DISCUSIÓN · APROBADA). **Solo construyes specs APROBADAS** |
 | `Docs/prompts/` | Tus tareas. Se ejecutan con "Lee y ejecuta Docs/prompts/…" |
+| `Docs/constructor/` | Tus reportes largos e insumos para el CEO |
 | `Docs/relevos/` | Notas de entrega entre chats del CEO |
 | `Docs/JOINSI_Contexto_HOMESI.md` | Contexto de negocio de HOMESÍ con fecha por dato |
 | `Docs/P1B_Sistema_de_Marca_HOMESI_Oficial.md` | Sistema de marca completo (fuente visual) |

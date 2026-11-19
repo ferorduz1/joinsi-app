@@ -1,6 +1,6 @@
 # JOINSI · Bitácora de decisiones
 **Propósito:** registrar qué se decidió, cuándo, en qué chat y por qué, para que ningún agente re-litigue lo cerrado ni repita un error ya corregido.
-**Corte:** 2026-10-23 · Las entradas nuevas se agregan al final, con fecha y chat de origen.
+**Corte:** 2026-11-19 · Las entradas nuevas se agregan al final, con fecha y chat de origen.
 
 ---
 
@@ -12,7 +12,7 @@
 | **JoinSi #2** (Cowork en el mismo proyecto) | Arquitecto y constructor a la vez | A3, A3-R, A3-R2, canon del funnel, CI, este paquete de arranque |
 | Claude Code (laptop viejo, luego `cl-hb0rl64`) | Constructor | CLAUDE.md, ARRANQUE_LAPTOP_NUEVO.md, migración, arreglos de tests |
 | Chat auditor (2026-10-23) | Auditoría | Diagnóstico del rol de arquitecto vacante, propuesta A3.1, 5 preguntas |
-| **JoinSi #3** | Arquitecto | Arranca con `Docs/00_LEEME_ARRANQUE_ARQUITECTO.md` |
+| **JoinSi #3** | CEO de producto y arquitecto | Registro del APROBADO A3, D1–D3, prompt A3-2 y spec A4 v0.1 (BORRADOR) |
 
 ---
 
@@ -96,3 +96,14 @@
 - Desviaciones aceptadas del prompt A3.1: el orden de commits cambió porque varios pasos ya estaban hechos desde antes, y no se reescribió historial ya publicado.
 - El CEO actualizó `CLAUDE.md`, `README_BUILD.md` (versiones reales y P34 separada de P35) y la LTM.
 
+## 2026-11-19 · JoinSi #3 · APROBADO A3 y decisiones del reporte del constructor
+
+- **Gate A3 cerrado. Decisión de Fernando, tal cual:** APROBADO A3 el 2026-11-18 en el chat de Claude Code, junto con A, B y C de A3.1. Su frase en ese chat: *"A,B,C todas si. Aprobado A3, arrancar ejecuta a3.1"*. Fernando lo dio **antes de ver el APK público** (el build que lo publicó terminó minutos después). **La revisión visual en el celular se hace con el primer APK de A4.** Ratificado por Fernando ante el CEO de producto el 2026-11-19.
+- Lectura del CEO: el primer APK de A4 es el de A4.1, que no cambia nada visible en SiPortfolio. Si esa revisión encuentra defectos visuales, se corrigen como cirugía sobre lo aprobado (A3-R3), no como reapertura del gate.
+- **D1 (versión de Flutter del CI):** el CEO recomienda fijarla a 3.47.5, la del laptop, con una sola fuente en el repo. Se ejecuta con `Docs/prompts/PROMPT_A3-2_Fijar_Flutter_CI.md` cuando Fernando lo lance. Riesgo que corrige: el CI compiló con 3.50.0 lo que se probó con 3.47.5.
+- **D2 (decisión del CEO):** `Docs/constructor/` se queda como el lugar de los reportes largos e insumos del constructor. El constructor escribe ahí; el CEO lo lee y no lo edita. Queda en el método (§2), en el arranque (§3) y en `CLAUDE.md` §7.
+- **D3:** resuelto por la decisión de Fernando de arriba.
+- Se crea `Docs/prompts/`. El prompt de A3.1 sigue en `Docs/` por historia.
+- Se escribe `Docs/specs/SPEC_A4_SiRadar.md` v0.1 en BORRADOR, sobre los insumos del constructor (`Docs/constructor/INSUMOS_A4_para_la_spec.md`, commit `8f7b161`).
+- Cambio de default de la LTM §9.5, decidido por el CEO en la spec: el contenido del playbook, del pre-funnel y de las piezas N30/N60/N90 lo redacta el CEO en `Docs/specs/A4_Contenido_Playbook_PreFunnel.md`, no el constructor. Motivo: el constructor no reinterpreta canon y el copy es canon de voz.
+- Los cambios de `Docs/` y `CLAUDE.md` de este turno quedan sin commitear; los commitea el paso 0 de `PROMPT_A3-2`.
