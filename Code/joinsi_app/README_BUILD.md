@@ -7,8 +7,10 @@ Se instala por **sideload**: no requiere cuenta de Play Store.
 
 ## 1 · Requisitos (una sola vez)
 
-- **Flutter 3.44 o superior (Dart 3.12+)**: es lo que exige el `pubspec.lock` versionado.
-  Verifica con `flutter --version`; si está por debajo, `flutter upgrade`.
+- **Flutter 3.47.5 exacto**, fijado en `pubspec.yaml` (`environment.flutter`), que es lo que
+  usa el CI. Verifica con `flutter --version`: debe decir 3.47.5.
+  Para subir de versión: cambiar `environment.flutter` en `pubspec.yaml`, `flutter pub get`,
+  `flutter analyze`, `flutter test`, push y verificar que el run del CI termine en verde.
 - Android SDK + **JDK 21** (Flutter 3.47 ya no compila Android con JDK 17). `flutter doctor` te dice qué falta.
 
 > **Sin Android SDK local también hay APK:** cada push a `main` lo compila GitHub Actions y lo publica en un link fijo, descargable desde el celular sin login:
