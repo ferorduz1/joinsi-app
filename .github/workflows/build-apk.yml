@@ -31,14 +31,27 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Set up Flutter (stable, Dart >=3.7)
+      # Version FIJA, leida de environment.flutter en pubspec.yaml: lo que se
+      # instala es lo que se prueba en el laptop. Sin esto, cada build traia el
+      # stable del dia y podia romperse sin tocar el repo (paso con JDK 21).
+      # La ruta va desde la raiz del repo: `with:` no usa el working-directory.
+      - name: Set up Flutter (versión fija desde pubspec.yaml)
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          flutter-version-file: Code/joinsi_app/pubspec.yaml
           cache: true
 
       - name: Flutter version
         run: flutter --version
+
+      # Falla si el Flutter del runner no es exactamente el de pubspec.yaml.
+      # Es lo que impide que las dos cifras se separen en silencio.
+      - name: Verify Flutter matches pubspec.yaml
+        run: |
+          want=$(sed -n 's/^  flutter: *\([0-9][0-9.]*\).*/\1/p' pubspec.yaml | head -n 1)
+          have=$(flutter --version --machine | sed -n 's/.*"frameworkVersion": *"\([^"]*\)".*/\1/p' | head -n 1)
+          echo "pubspec.yaml: ${want:-?}  ·  runner: ${have:-?}"
+          test -n "$want" && test "$want" = "$have"
 
       # El repo versiona SOLO lib/, test/, assets/ y pubspec.yaml.
       # Las carpetas nativas se generan aqui. flutter create puede pisar

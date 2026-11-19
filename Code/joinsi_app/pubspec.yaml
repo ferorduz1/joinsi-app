@@ -7,6 +7,11 @@ environment:
   # CardThemeData como tipo de ThemeData.cardTheme exige la normalizacion
   # de component themes => Flutter >=3.29 (Dart 3.7).
   sdk: '>=3.7.0 <4.0.0'
+  # Unica fuente de la version de Flutter. El CI la lee de aqui
+  # (flutter-version-file). Pub solo exige el limite inferior en local: antes
+  # de commitear, `flutter --version` debe coincidir. Se sube aqui, y solo
+  # aqui, cuando se decida subir ambos.
+  flutter: 3.47.5
 
 dependencies:
   flutter:
